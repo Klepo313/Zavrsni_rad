@@ -125,6 +125,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: var(--bg);
+  font-family: var(--font_Rondalo);
 }
 </style>
