@@ -126,6 +126,6 @@ li {
 }
 a {
   color: var(--bg);
-  font-family: var(--font_Rondalo);
+  font-family: var(--font_Montserrat);
 }
 </style>
