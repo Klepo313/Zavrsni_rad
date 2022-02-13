@@ -213,7 +213,7 @@
     background: none;
     outline: none;
     border: 2px solid var(--main_purple);
-    border-radius: 0px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
 
     font-style: normal;
     font-weight: normal;
