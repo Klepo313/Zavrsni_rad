@@ -1,30 +1,57 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  
   <router-view />
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
+  #nav {
+    position: absolute;
+    width: 100%;
+    padding: 60px 200px;
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #nav > div {
+    color: white;
+  }
+  .nav-left {
+    width: 880px;
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .router-link-active {
+    color: var(--white);
+    text-decoration: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 27px;
+  }
+  .router-link-active:hover{
+    text-decoration: 2px solid underline;
+    margin-top: -5px;
+  }
+  .loginBtn{
+    color: var(--white);
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 15px 52px;
+    background: linear-gradient(270deg, var(--main_blue) -26.38%, var(--main_purple) 100%);
+    border: none;
+  }
+  .loginBtn:hover{
+    cursor: pointer;
+    opacity: 0.9;
+  }
+  a{
+    text-decoration: none;
+    outline: none;
+  }
+
 </style>
