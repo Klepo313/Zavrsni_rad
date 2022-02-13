@@ -14,7 +14,7 @@
   <router-view />
 
     <div class="nav-right">
-      <router-link to="/myAccount"><img src="../assets/accountIcon.svg" alt="acc"></router-link>
+      <router-link to="/MyAccount"><img src="../assets/accountIcon.svg" alt="acc"></router-link>
     </div>
     
   </div>
