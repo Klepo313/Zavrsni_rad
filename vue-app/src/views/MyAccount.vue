@@ -31,7 +31,6 @@ export default {
 nav{
     position: fixed;
     width: 22.39583vw;
-    outline: 1px solid red;
 
     display: flex;
     flex-direction: column;
@@ -73,8 +72,10 @@ li{
     
     opacity: 1;
     border-radius: 10px;
+
+    cursor: pointer;
 }
-li:first-child{
+li:nth-child(1){
     background: linear-gradient(92.72deg, #C850C0 0%, #4158D0 100%);
 }
 .liImg{
