@@ -1,11 +1,11 @@
 <template>
-    <div>
+  <div>
 
-        <img   
-        @click="hasHistory() 
-        ? $router.go(-1) 
-        : $router.push('/')" 
-        class="my-5 btn btn-outline-success backArrow" src="./assets/backArrow.svg" alt="">
+      <img   
+      @click="hasHistory() 
+      ? $router.go(-1) 
+      : $router.push('/')" 
+      class="my-5 btn btn-outline-success backArrow" src="./assets/backArrow.svg" alt="">
 
       <div class="mainScreen">
         <nav>
@@ -59,7 +59,7 @@
 
       </div>
 
-    </div>
+  </div>
 </template>
 
 <script>
@@ -76,7 +76,6 @@ export default {
 <style scoped>
 
 .mainScreen{
-
   display: flex;
   flex-direction: row;
 
@@ -117,7 +116,6 @@ li{
   justify-content: flex-start;
   align-items: center;
 
-  padding: 15px 0px 15px 26px;
   margin: 14px 0px;
 
   text-decoration: none;    
@@ -197,7 +195,7 @@ a{
 }
 
 .views{
-  margin-top: 80px;
+  margin-top: 75px;
 }
 
 
