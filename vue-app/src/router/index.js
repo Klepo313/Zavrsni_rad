@@ -1,23 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
-import Login from "../views/Login.vue";
-import myAccount from "../views/MyAccount.vue";
+import Dashboard from "../views/stu_Dashboard.vue";
+import eCourses from "../views/stu_eCourses.vue";
+import Calendar from "../views/stu_Calendar.vue";
+import Profile from "../views/stu_Profile.vue";
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "Stu_Dashboard",
+    component: Dashboard,
   },
   {
-    path: "/login",
-    name: "Login",
-    component: Login,
+    path: "/eCourses",
+    name: "Stu_eCourses",
+    component: eCourses,
   },
   {
-    path: "/MyAccount",
-    name: "MyAccount",
-    component: myAccount,
+    path: "/calendar",
+    name: "Stu_Calendar",
+    component: Calendar,
+  },
+  {
+    path: "/profile",
+    name: "Stu_Profile",
+    component: Profile,
   },
   
 ];

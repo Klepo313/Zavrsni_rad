@@ -1,0 +1,47 @@
+:root{
+    --bg: #0A0A0A;
+    --white: #FFFFFF;
+    --black: #000000;
+    --main_purple: #C850C0;
+    --main_blue: #4158D0;
+    --main_yellow: #F6D742;
+    --light_black: #111111;
+    --upload_light_black: #1F1F1F;
+
+    --font_Poppins: 'Poppins', sans-serif;
+    --font_Montserrat: 'Montserrat', sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font_Poppins);
+    transition: all 0.1s ease-in-out;
+    color: var(--white);
+    scroll-behavior: smooth;
+}
+body {
+    background-color: var(--bg);
+}
