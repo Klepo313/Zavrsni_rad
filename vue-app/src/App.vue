@@ -78,12 +78,14 @@ export default {
 .mainScreen{
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
 
   height: 100%;
   width: 100%;
 }
 
 nav{
+  position: relative;
   width: 267px;
   display: flex;
   flex-direction: column;

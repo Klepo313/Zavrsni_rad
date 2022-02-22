@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="upperInfo">
-            <h1>Hi, Antonio</h1>
+            <h1>Dashboard</h1>
             <h4>student</h4>
         </div>
         <div class="searchContainer">
