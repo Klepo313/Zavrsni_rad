@@ -3,7 +3,7 @@
         <div class="upperInfo">
             <div>
                 <h1>My eCourses</h1>
-                <h4>ELEKTROTEHNIČKA ŠKOLA SPLIT - 4.e</h4>
+                <h4>student</h4>
             </div>
             <div id="join_eCourse">
                 <img src="../assets/person-add.svg" alt="">

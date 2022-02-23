@@ -26,6 +26,7 @@ export default{
 
     display: flex;
     align-items: center;
+    margin-bottom: 2px;
 }
 .eCourse:hover{
     background-color: var(--light_black);

@@ -47,10 +47,40 @@
             <div class="grid-item">
                 <input class="grid-input" type="text" readonly>
             </div>
+            <div class="grid-item">
+                Attending eCourses
+            </div>
         </div>
+
+        <eCourse 
+            v-for="post in posts"
+            :key="post.id"
+            :name="post.name"
+            :admin="post.admin"
+        />
 
     </div>
 </template>
+
+<script>
+import eCourse from "../components/eCourse.vue"
+
+export default {
+    components: {
+        eCourse
+    },
+    data() {
+        return {
+            posts: [
+                { id: 1, name: "Predmet br. 1", admin: 'Profesor 1' },
+                { id: 2, name: "Predmet br. 2", admin: 'Profesor 2' },
+                { id: 3, name: "Predmet br. 3", admin: 'Profesor 3' }
+            ]
+        }
+    },
+    
+}
+</script>
 
 <style scoped>
 
@@ -81,6 +111,7 @@ h4{
 }
 .courseContainer{
     margin-top: 40px;
+    margin-bottom: 15px;
 
     display: grid;
     grid-template-rows: repeat(7, 38px);
