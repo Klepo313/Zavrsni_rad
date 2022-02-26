@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="eCourse">
+        <div class="eCourse" @click="goToHome()">
             <img src="../assets/image5.png" alt="">
             <div class="eCourseDetails">
                 <p class="courseName"> {{ name }} </p>
@@ -12,7 +12,12 @@
 
 <script>
 export default{
-    props: ['name', 'admin']
+    props: ['name', 'admin'],
+    methods:{
+        goToHome(){
+            this.$router.push('/eCourses/4'); 
+        }
+    }
 }
 </script>
 

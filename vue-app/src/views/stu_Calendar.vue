@@ -28,6 +28,12 @@
 const date = new Date();
 
 export default{
+  data(){
+    return {
+      data: null
+    }
+  },
+
   methods: {
 
     renderCalendar: function(){ 
@@ -73,7 +79,7 @@ export default{
         "December",
       ];
 
-      this.$el.querySelector(".date h1").innerHTML = months[date.getMonth()];
+      document.querySelector(".date h1").innerHTML = months[date.getMonth()];
 
       document.querySelector(".date p").innerText = new Date().toDateString();
 
@@ -102,23 +108,27 @@ export default{
     },
 
     rederation1: function(){
+      console.log("Livo")
       date.setMonth(date.getMonth() - 1);
       this.renderCalendar();
     },
 
     rederation2: function() {
+      console.log("Desno")
       date.setMonth(date.getMonth() + 1);
       this.renderCalendar();
+    },
+
+    callOut: function() {
+      this.renderCalendar();
+    },
+
+    created: function(){
+      this.callOut();
     }
 
-  },
-  created(){
-    this.renderCalendar();
   }
 }
-
-
-
 
 </script>
 

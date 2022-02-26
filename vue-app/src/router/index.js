@@ -3,6 +3,7 @@ import Dashboard from "../views/stu_Dashboard.vue";
 import eCourses from "../views/stu_eCourses.vue";
 import Calendar from "../views/stu_Calendar.vue";
 import Profile from "../views/stu_Profile.vue";
+import eCourse_details from "../views/stu_eCourseDetails.vue";
 
 const routes = [
   {
@@ -16,6 +17,11 @@ const routes = [
     component: eCourses,
   },
   {
+    path: "/eCourses/:id",
+    name: "Stu_eCourseDetails",
+    component: eCourse_details
+  },
+  {
     path: "/calendar",
     name: "Stu_Calendar",
     component: Calendar,
@@ -25,7 +31,6 @@ const routes = [
     name: "Stu_Profile",
     component: Profile,
   },
-  
 ];
 
 const router = createRouter({
