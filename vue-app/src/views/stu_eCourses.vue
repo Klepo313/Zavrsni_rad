@@ -1,5 +1,13 @@
 <template>
     <div>
+        <div class="pop-up">
+            <div class="frame">
+                <img src="../assets/groupIcon.svg" alt="">
+                <h3></h3>
+                <input type="text">
+                <button class="loginBtn">Join eCourse</button>
+            </div>
+        </div>
         <div class="upperInfo">
             <div>
                 <h1>My eCourses</h1>
@@ -45,6 +53,22 @@ export default {
 </script>
 
 <style scoped>
+
+.pop-up{
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+}
+.frame{
+    width: 436px;
+    height: 436px;
+    background: var(--light_black);
+    border-radius: 20px;
+}
 
 .upperInfo{
     display: flex;
