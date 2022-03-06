@@ -10,17 +10,19 @@
             <div class="loginDiv">
                 
                     <h3>Login to upCloud</h3>
-
+                <form @submit.prevent="onSubmit">
                     <div>
                         <img class="formIcons fic1" src="../assets/emailIcon.svg" alt="mail">
-                        <input type="email" id="email" class="formInput" autocomplete="off" placeholder="Email">
+                        <input type="email" id="email" ref="email" class="formInput" autocomplete="off" placeholder="Email" required>
                     </div>
                     <div>
                         <img class="formIcons fic2" src="../assets/lockIcon.svg" alt="mail">
-                        <input type="password" id="password" class="formInput fi2" autocomplete="off" placeholder="Password">
+                        <input type="password" id="password" ref="password" class="formInput fi2" autocomplete="off" placeholder="Password" required>
                     </div>
 
-                    <button class="loginBtn" type="submit" onclick="window.location.href='http://localhost:8080/';"> Login </button>
+                    <button v-on:click="user_login" class="loginBtn" type="submit"> Login </button>
+                </form>
+                    
 
                 <!--onclick="window.location.href='http://localhost:8080/';"-->
 
@@ -35,7 +37,61 @@
 
 <script>
 export default {
-    name: "login"
+    name: "login",
+    methods: {
+        user_login() {
+            const inpEmail = this.$refs.email;
+            const inpPassword = this.$refs.password;
+
+            let url = "http://localhost:3000/login/" + inpEmail.value + "/" + inpPassword.value;
+
+            fetch(url)
+           .then(response => {
+                response.json().then(parsedJson => {
+                //const myJSONtxt = JSON.stringify(parsedJson); 
+
+                    let login_status = parsedJson.status
+                    
+                    console.log(parsedJson)
+
+                    if(login_status == "successful"){
+
+                        console.log("Uspješna prijava!")
+
+                        let osa_id = parsedJson.osa_id
+                        let osa_email = parsedJson.osa_username
+                        let osa_uloga
+
+                        if(parsedJson.osa_ucenik!=null){
+                            osa_uloga = "ucenik"
+                        } else{
+                            osa_uloga = "profesor"
+                        }
+
+                        sessionStorage.setItem('email', osa_email); 
+                        sessionStorage.setItem('id_osobe', osa_id); 
+                        sessionStorage.setItem('uloga', osa_uloga);
+
+                        
+
+                        //Redirect
+                        window.location.href = 'http://localhost:8080'
+
+
+                    } else{
+                        console.log("Neuspješna prijava!")
+
+                        inpEmail.style.border = "3px solid red"
+                        inpPassword.style.border = "3px solid red"
+                    }
+                })
+            })
+            .catch(error => console.log(error))
+        },
+        onSubmit () {
+            // Do something...
+        }
+    }
 }
 </script>
 

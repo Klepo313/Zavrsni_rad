@@ -31,8 +31,89 @@ const getMjesto = async (req, res) => {
 }
 
 const loginUser = (request, response) => {
-    var email = request.body.email;
-    var passwd = request.body.password; 
+    var email = request.params.email;
+    var passwd = request.params.password; 
+    
+    if(email && passwd){
+        console.log("Pridani parametri: ")
+        console.log("EMAIL: " + email + "\tPASSWORD: " + passwd)
+
+       /* pool.query(`SELECT kor_id, kor_username FROM korisnik 
+                    WHERE kor_username = '${email}' 
+                    AND kor_password = '${passwd}'`, (err, results) => {
+
+                        if(err) throw err; //U slučaju greške
+
+                        else if(typeof(results.rows[0])!=="undefined"){
+
+                            var id = results.rows[0].kor_id
+                            var kor_username = results.rows[0].kor_username
+
+                            console.log("\nPosli upita:")
+                            console.log("ID: " + id)
+                            console.log("EMAIL: " + kor_username);
+
+                            response.status(200).json(results.rows);
+
+                        } else{
+                            console.log("Greška 2")
+                            response.status(200).json({"status":"unsuccessful"}); 
+                        }
+
+                    }
+                )*/
+    
+                pool.query(`select kor_id , kor_username , kor_password , 
+                (select uv.osa_id from ucenici_v uv where uv.osa_kor_id = kor_id) ucenik,
+                (select pv.osa_id from profesori_v pv where pv.osa_kor_id = kor_id) profesor 
+                from korisnik k 
+                WHERE kor_username = '${email}' 
+                AND kor_password = '${passwd}'`, (err, results) => {
+
+                    if(err) throw err; //U slučaju greške
+
+                    else if(typeof(results.rows[0])!=="undefined"){
+
+                        var kor_id = results.rows[0].kor_id
+                        var kor_username = results.rows[0].kor_username
+                        var kor_password = results.rows[0].kor_password
+                        var kor_ucenik = results.rows[0].ucenik
+                        var kor_prof = results.rows[0].profesor
+
+                        //response.status(200).json(results.rows);
+                        response.status(200).json({
+                            "status": "successful", 
+                            "osa_id": kor_id, 
+                            "osa_username": kor_username, 
+                            "osa_password": kor_password, 
+                            "osa_ucenik": kor_ucenik,
+                            "osa_profesor": kor_prof
+                        })
+
+                    } else{
+                        console.log("Greška 2")
+                        response.status(200).json({"status":"unsuccessful"}); 
+                    }
+
+                }
+            )
+    
+    } else{
+        console.log("Greška 1")
+        response.status(200).json({"status":"unsuccessful"}); 
+    }
+
+}
+
+
+module.exports = {
+    pool,
+    getMjesta,
+    getMjesto,
+    loginUser
+} 
+
+/*
 
     console.log("Evo me u controlleru");
 
@@ -75,15 +156,12 @@ const loginUser = (request, response) => {
                 });
                
                   //response.status(200).json({"status":"unsuccessful"}); 
-              }else{
+            }else{
                   
                 response.status(200).json({"status":"unsuccessful"}); 
         
-              }
-     
+            }   
           });
-  
-        
         }
 
 
@@ -92,13 +170,5 @@ const loginUser = (request, response) => {
             response.status(200).json({"status":"unsuccessful"}); 
     
           }
-}
-
-
-module.exports = {
-    pool,
-    getMjesta,
-    getMjesto,
-} 
-
+*/
 

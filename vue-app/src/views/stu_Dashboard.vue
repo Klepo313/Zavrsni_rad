@@ -38,6 +38,13 @@ export default {
             ]
         }
     },
+    mounted() {
+        let t1, t2, t3
+        t1 = sessionStorage.getItem('email')
+        t2 = sessionStorage.getItem('id_osobe')
+        t3 = sessionStorage.getItem('uloga')
+        console.log("\nSession storage:\n" + t1 + ", " + t2 + ", " + t3)
+    }
     
 }
 
