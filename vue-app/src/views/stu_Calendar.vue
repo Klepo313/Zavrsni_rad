@@ -28,11 +28,6 @@
 const date = new Date();
 
 export default{
-  data(){
-    return {
-      data: null
-    }
-  },
 
   methods: {
 
@@ -128,6 +123,7 @@ export default{
     }
 
   }
+  
 }
 
 </script>

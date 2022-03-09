@@ -11,7 +11,7 @@ const pool = new Pool({
 pool.connect();
 
 const getMjesta = (req, res) => {
-    pool.query("SELECT * FROM mjesta", (err, results) => {
+    pool.query("SELECT * FROM mjesta LIMIT 10", (err, results) => {
         if (err){
             console.log(err)
         }
@@ -63,37 +63,41 @@ const loginUser = (request, response) => {
                     }
                 )*/
     
-                pool.query(`select kor_id , kor_username , kor_password , 
-                (select uv.osa_id from ucenici_v uv where uv.osa_kor_id = kor_id) ucenik,
-                (select pv.osa_id from profesori_v pv where pv.osa_kor_id = kor_id) profesor 
-                from korisnik k 
-                WHERE kor_username = '${email}' 
-                AND kor_password = '${passwd}'`, (err, results) => {
+        pool.query(`SELECT kor_id, kor_username, kor_password,
+                        (SELECT uv.osa_id
+                        FROM   ucenici_v uv
+                        WHERE  uv.osa_kor_id = kor_id) ucenik,
+                        (SELECT pv.osa_id
+                        FROM   profesori_v pv
+                        WHERE  pv.osa_kor_id = kor_id) profesor
+                    FROM   korisnik k
+                    WHERE  kor_username = '${email}'
+                    AND kor_password = '${passwd}' `, (err, results) => {
 
-                    if(err) throw err; //U slučaju greške
+            if(err) throw err; //U slučaju greške
 
-                    else if(typeof(results.rows[0])!=="undefined"){
+            else if(typeof(results.rows[0])!=="undefined"){
 
-                        var kor_id = results.rows[0].kor_id
-                        var kor_username = results.rows[0].kor_username
-                        var kor_password = results.rows[0].kor_password
-                        var kor_ucenik = results.rows[0].ucenik
-                        var kor_prof = results.rows[0].profesor
+                var kor_id = results.rows[0].kor_id
+                var kor_username = results.rows[0].kor_username
+                var kor_password = results.rows[0].kor_password
+                var kor_ucenik = results.rows[0].ucenik
+                var kor_prof = results.rows[0].profesor
 
-                        //response.status(200).json(results.rows);
-                        response.status(200).json({
-                            "status": "successful", 
-                            "osa_id": kor_id, 
-                            "osa_username": kor_username, 
-                            "osa_password": kor_password, 
-                            "osa_ucenik": kor_ucenik,
-                            "osa_profesor": kor_prof
-                        })
+                //response.status(200).json(results.rows);
+                response.status(200).json({
+                    "status": "successful", 
+                    "osa_id": kor_id, 
+                    "osa_username": kor_username, 
+                    "osa_password": kor_password, 
+                    "osa_ucenik": kor_ucenik,
+                    "osa_profesor": kor_prof
+                })
 
-                    } else{
-                        console.log("Greška 2")
-                        response.status(200).json({"status":"unsuccessful"}); 
-                    }
+            } else{
+                console.log("Greška 2")
+                response.status(200).json({"status":"unsuccessful"}); 
+            }
 
                 }
             )
@@ -105,12 +109,29 @@ const loginUser = (request, response) => {
 
 }
 
+const getUserDetails = (req, res) => {
+    var kor_id = req.params.id;
+
+    if(kor_id){
+        pool.query(`SELECT * FROM osoba WHERE osa_kor_id = ${kor_id}`, (err, results) => {
+            if(err) throw err;
+            else{
+                console.log(results.rows)
+                res.status(200).json(results.rows); 
+            }
+        })
+    } else{
+        console.log("Greška 2")
+        response.status(200).json({"status":"unsuccessful"}); 
+    }
+}
 
 module.exports = {
     pool,
     getMjesta,
     getMjesto,
-    loginUser
+    loginUser,
+    getUserDetails,
 } 
 
 /*

@@ -1,8 +1,11 @@
 <template>
     <div>
         <div class="upperInfo">
-            <h1>Dashboard</h1>
-            <h4>student</h4>
+            <div>
+                <h1 ref="hd1">Hi, </h1>
+                <h4>student</h4>
+            </div>
+            <LogoutBtn />
         </div>
         <div class="searchContainer">
             <label for="">Search for eCourses</label>
@@ -24,10 +27,12 @@
 <script>
 
 import eCourse from "../components/eCourse.vue"
+import LogoutBtn from "../components/LogoutBtn.vue"
 
 export default {
     components: {
-        eCourse
+        eCourse,
+        LogoutBtn,
     },
     data() {
         return {
@@ -35,16 +40,42 @@ export default {
                 { id: 1, name: "Predmet br. 1", admin: 'Profesor 1' },
                 { id: 2, name: "Predmet br. 2", admin: 'Profesor 2' },
                 { id: 3, name: "Predmet br. 3", admin: 'Profesor 3' }
-            ]
+            ],
+            
         }
     },
-    mounted() {
-        let t1, t2, t3
-        t1 = sessionStorage.getItem('email')
-        t2 = sessionStorage.getItem('id_osobe')
-        t3 = sessionStorage.getItem('uloga')
-        console.log("\nSession storage:\n" + t1 + ", " + t2 + ", " + t3)
-    }
+    created() {
+        let ses_email = sessionStorage.getItem('email')
+        let ses_id = sessionStorage.getItem('id_osobe')
+        let ses_uloga = sessionStorage.getItem('uloga')
+        console.log("\nSession storage:\n" + ses_email + ", " + ses_id + ", " + ses_uloga)
+
+        if(ses_email!=null || ses_id!=null || ses_uloga!=null){
+            //Ostani na dashboardu
+            console.log("Dopušten pristup")
+
+            let url = "http://localhost:3000/userDetails/" + ses_id
+
+            fetch(url)
+           .then(response => {
+                response.json().then(parsedJson => {
+                    console.log(parsedJson)
+
+                    let ucn_ime = parsedJson.osa_ime
+                    console.log(ucn_ime)
+
+                })
+            })
+            .catch(error => console.log(error))
+
+        } else {
+            //Otiđi se prijavit
+            window.location.href = 'http://localhost:8080/login'
+            console.log("Nedopušten pristup")
+        }
+    },
+    
+    
     
 }
 
@@ -119,7 +150,13 @@ label{
     transform: scale(0.9)
 }
 
+</style>
 
-
-
+<style>
+.upperInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 </style>

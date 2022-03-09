@@ -17,6 +17,7 @@ app.use(express.json()); //req.body
 app.get("/mjesta", pool.getMjesta)
 app.get("/mjesta/:id", pool.getMjesto)
 app.get("/login/:email/:password", pool.loginUser)
+app.get("/userDetails/:id", pool.getUserDetails)
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)

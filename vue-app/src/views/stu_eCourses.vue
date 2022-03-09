@@ -13,10 +13,11 @@
                 <h1>My eCourses</h1>
                 <h4>student</h4>
             </div>
-            <div id="join_eCourse">
+            <!-- <div id="join_eCourse">
                 <img src="../assets/person-add.svg" alt="">
                 <span>Join eCourse</span>
-            </div>
+            </div> -->
+            <LogoutBtn />
         </div>
         <div class="courseContainer">
             <label for="">All attending eCourses</label>
@@ -33,10 +34,12 @@
 <script>
 
 import eCourse from "../components/eCourse.vue"
+import LogoutBtn from "../components/LogoutBtn.vue"
 
 export default {
     components: {
-        eCourse
+        eCourse,
+        LogoutBtn
     },
     data() {
         return {
@@ -62,6 +65,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100vh;
+    display: none;
 }
 .frame{
     width: 436px;

@@ -1,8 +1,11 @@
 <template>
     <div>
         <div class="upperInfo">
-            <h1>Profile</h1>
-            <h4>student</h4>
+            <div>   
+                <h1>Profile</h1>
+                <h4>student</h4>
+            </div>
+            <LogoutBtn />
         </div>
         <div class="courseContainer">
             <div class="grid-item">
@@ -64,10 +67,12 @@
 
 <script>
 import eCourse from "../components/eCourse.vue"
+import LogoutBtn from "../components/LogoutBtn.vue"
 
 export default {
     components: {
-        eCourse
+        eCourse,
+        LogoutBtn
     },
     data() {
         return {

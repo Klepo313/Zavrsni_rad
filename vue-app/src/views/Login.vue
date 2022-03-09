@@ -10,6 +10,7 @@
             <div class="loginDiv">
                 
                     <h3>Login to upCloud</h3>
+                    <!-- @submit.prevent="onSubmit" -->
                 <form @submit.prevent="onSubmit">
                     <div>
                         <img class="formIcons fic1" src="../assets/emailIcon.svg" alt="mail">
@@ -97,6 +98,12 @@ export default {
 
 
 <style scoped>
+
+    ::-ms-reveal {
+        filter: invert(100%);
+        margin-right: 20px;
+    }
+
     .main {
         height: 100vh;
         width: 100%;
