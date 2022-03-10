@@ -107,7 +107,7 @@ const getUserDetails = (req, res) => {
     var kor_id = req.params.id;
 
     if(kor_id){
-        pool.query(`SELECT * FROM osoba WHERE osa_kor_id = ${kor_id}`, (err, results) => {
+        pool.query(`SELECT * FROM ucenici_kor_v WHERE osa_id = ${kor_id}`, (err, results) => {
             if(err) throw err;
             else{
                 console.log(results.rows)

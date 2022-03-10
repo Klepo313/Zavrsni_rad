@@ -12,43 +12,43 @@
                 Name
             </div>
             <div class="grid-item">
-                <input class="grid-input" type="text" value="Antonio" readonly>
+                <input class="grid-input" type="text" ref="name" readonly>
             </div>
             <div class="grid-item">
                 Surname
             </div>
             <div class="grid-item">
-                <input class="grid-input" type="text" readonly>
+                <input class="grid-input" type="text" ref="surname" readonly>
             </div>
             <div class="grid-item">
                 Email adress
             </div>
             <div class="grid-item">
-                <input class="grid-input" type="email" readonly>
+                <input class="grid-input" type="email" ref="email" readonly>
             </div>
             <div class="grid-item">
                 School
             </div>
             <div class="grid-item">
-                <input class="grid-input " type="text" readonly>
+                <input class="grid-input " type="text" ref="school" readonly>
             </div>
             <div class="grid-item school">
                 School direction
             </div>
             <div class="grid-item">
-                <input class="grid-input" type="text" readonly>
+                <input class="grid-input" type="text" ref="direction" readonly>
             </div>
             <div class="grid-item school">
                 Class
             </div>
             <div class="grid-item">
-                <input class="grid-input" type="text" readonly>
+                <input class="grid-input" type="text" ref="class" readonly>
             </div>
             <div class="grid-item">
-                Enrollment date
+                School year
             </div>
             <div class="grid-item">
-                <input class="grid-input" type="text" readonly>
+                <input class="grid-input" type="text" ref="enrollment" readonly>
             </div>
             <div class="grid-item">
                 Attending eCourses
@@ -74,6 +74,7 @@ export default {
         eCourse,
         LogoutBtn
     },
+    //don ucenike, koji je on odjeljenje, id odjeljenja u view
     data() {
         return {
             posts: [
@@ -83,6 +84,36 @@ export default {
             ]
         }
     },
+    mounted(){
+
+        let ses_uloga_id = sessionStorage.getItem('id_uloga')
+        let url = "http://localhost:3000/userDetails/" + ses_uloga_id
+
+        fetch(url)
+        .then(response => {
+            response.json().then(parsedJson => {
+                console.log(parsedJson)
+              
+                const inpName = this.$refs.name;
+                const inpSurname = this.$refs.surname;
+                const inpEmail = this.$refs.email;
+                const inpSchool = this.$refs.school;
+                const inpDirections = this.$refs.direction;
+                const inpClass = this.$refs.class;
+                const inpYear = this.$refs.enrollment;
+
+                inpName.value = parsedJson[0].osa_ime
+                inpSurname.value = parsedJson[0].osa_prezime
+                inpEmail.value = parsedJson[0].osa_email
+                inpSchool.value = parsedJson[0].org_naziv
+                inpDirections.value = parsedJson[0].npr_naziv
+                inpClass.value = parsedJson[0].odj_naziv
+                inpYear.value = parsedJson[0].skg_sif
+
+            })
+        })
+        .catch(error => console.log(error))
+    }
     
 }
 </script>

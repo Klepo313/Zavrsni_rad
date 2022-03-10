@@ -2,7 +2,7 @@
     <div>
         <div class="upperInfo">
             <div>
-                <h1 ref="hd1">Hi, </h1>
+                <h1 ref="hd1">Dashboard</h1>
                 <h4>student</h4>
             </div>
             <LogoutBtn />
@@ -44,36 +44,7 @@ export default {
             
         }
     },
-    created() {
-        let ses_email = sessionStorage.getItem('email')
-        let ses_id = sessionStorage.getItem('id_osobe')
-        let ses_uloga = sessionStorage.getItem('uloga')
-        console.log("\nSession storage:\n" + ses_email + ", " + ses_id + ", " + ses_uloga)
-
-        if(ses_email!=null || ses_id!=null || ses_uloga!=null){
-            //Ostani na dashboardu
-            console.log("Dopušten pristup")
-
-            let url = "http://localhost:3000/userDetails/" + ses_id
-
-            fetch(url)
-           .then(response => {
-                response.json().then(parsedJson => {
-                    console.log(parsedJson)
-
-                    let ucn_ime = parsedJson.osa_ime
-                    console.log(ucn_ime)
-
-                })
-            })
-            .catch(error => console.log(error))
-
-        } else {
-            //Otiđi se prijavit
-            window.location.href = 'http://localhost:8080/login'
-            console.log("Nedopušten pristup")
-        }
-    },
+    
     
     
     

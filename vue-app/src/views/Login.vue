@@ -61,6 +61,7 @@ export default {
 
                         let osa_id = parsedJson.osa_id
                         let osa_email = parsedJson.osa_username
+                        let osa_uloga_id = parsedJson.osa_ucenik
                         let osa_uloga
 
                         if(parsedJson.osa_ucenik!=null){
@@ -72,7 +73,7 @@ export default {
                         sessionStorage.setItem('email', osa_email); 
                         sessionStorage.setItem('id_osobe', osa_id); 
                         sessionStorage.setItem('uloga', osa_uloga);
-
+                        sessionStorage.setItem('id_uloga', osa_uloga_id)
                         
 
                         //Redirect
