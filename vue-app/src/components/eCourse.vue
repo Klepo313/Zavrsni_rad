@@ -3,8 +3,8 @@
         <div class="eCourse" @click="goToHome()">
             <img src="../assets/image5.png" alt="">
             <div class="eCourseDetails">
-                <p class="courseName"> {{ name }} </p>
-                <p class="courseAdmin"> {{ admin }} </p>
+                <p class="courseName"> {{ naziv }} </p>
+                <p class="courseAdmin"> {{ prof }} </p>
             </div>
         </div>
     </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default{
-    props: ['name', 'admin'],
+    props: ['naziv', 'prof'],
     methods:{
         goToHome(){
             this.$router.push('/eCourses/4'); 

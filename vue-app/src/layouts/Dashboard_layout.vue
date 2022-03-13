@@ -80,7 +80,7 @@ export default {
       console.log("Dopušten pristup")
     } else {
       //Otiđi se prijavit
-      window.location.href = 'http://localhost:8080/login'
+      window.location.href = 'http://localhost:8080/wp'
       console.log("Nedopušten pristup")
     }
   },

@@ -15,10 +15,10 @@
         <div class="courseContainer">
             <label for="">Last visited eCourses</label>
             <eCourse 
-                v-for="post in posts"
-                :key="post.id"
-                :name="post.name"
-                :admin="post.admin"
+                v-for="naziv in nazivi || profe in prof"
+                :key="naziv"
+                :naziv="naziv"
+                :prof="profe"
             />
         </div>
     </div>
@@ -36,15 +36,35 @@ export default {
     },
     data() {
         return {
-            posts: [
-                { id: 1, name: "Predmet br. 1", admin: 'Profesor 1' },
-                { id: 2, name: "Predmet br. 2", admin: 'Profesor 2' },
-                { id: 3, name: "Predmet br. 3", admin: 'Profesor 3' }
-            ],
-            
+            nazivi: [],
+            prof: []
         }
     },
-    
+    mounted(){
+        let ses_uloga_id = sessionStorage.getItem('id_uloga')
+        let url = "http://localhost:3000/eCourses/" + ses_uloga_id
+
+        fetch(url)
+           .then(response => {
+                response.json().then(parsedJson => {
+                    console.log(parsedJson)
+
+                    let ec_naziv
+                    let ec_prof
+
+                    for (let i = 0; i < parsedJson.length; i++) {
+                        ec_naziv = parsedJson[i].nap_naziv
+                        ec_prof = parsedJson[i].osa_ime_p + " " + parsedJson[i].osa_prezime_p
+
+                        this.nazivi.push(ec_naziv)
+                        this.prof.push(ec_prof)
+                    }
+
+                    console.log(this.nazivi, this.prof)
+                    
+                }) 
+            })
+    }
     
     
     

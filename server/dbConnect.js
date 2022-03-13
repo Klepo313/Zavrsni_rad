@@ -120,10 +120,26 @@ const getUserDetails = (req, res) => {
     }
 }
 
+const getKolegij = (req, res) => {
+    const kor_id = parseInt(req.params.id)
+
+    pool.query(`SELECT nap_id, nap_naziv, osa_id_p, osa_ime_p, osa_prezime_p
+                FROM   predmeti_all_v
+                WHERE  osa_id_u = ${ kor_id }
+                ORDER  BY nap_id `, 
+        (err, results) => {
+            if (err) console.log(err);
+            else{
+                res.json(results.rows)
+            }
+    })
+}
+
 module.exports = {
     pool,
     getMjesta,
     getMjesto,
     loginUser,
     getUserDetails,
+    getKolegij
 } 
