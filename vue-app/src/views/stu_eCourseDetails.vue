@@ -1,8 +1,11 @@
 <template>
     <main>
         <div class="upperInfo">
-            <h1>eCourse name</h1>
-            <h4>Profesor</h4>
+            <div>
+                <h1 ref="hd1">Dashboard</h1>
+                <h4>student</h4>
+            </div>
+            <LogoutBtn />
         </div>
         <themeSection />
     </main>
@@ -12,10 +15,12 @@
 
 import sourceData from './../../data/db.json'
 import themeSection from '../components/eCourse_theme.vue'
+import LogoutBtn from '../components/LogoutBtn.vue'
 
 export default {
     components: {
-        themeSection
+        themeSection,
+        LogoutBtn
     },
     computed: {
         destinationId(){ 

@@ -1,20 +1,21 @@
 <template>
     <div>
-        <section v-if="themeType === 'U'">
-            Pekmez
-        </section>
-        <section v-else>
-            
-        </section>
+        <UploadContainer />
     </div>
 </template>
 
 <script>
+
+import UploadContainer from '../components/UploadContainer.vue'
+
 export default {
     data(){
         return {
             themeType: 'U'
         }
+    },
+    components: {
+        UploadContainer
     }
 }
 </script>

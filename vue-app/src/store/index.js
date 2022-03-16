@@ -1,8 +1,24 @@
+
 import { createStore } from "vuex";
 
 export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    allCourses: [],
+    myCourses: [],
+  },
+  mutations: { //Mijenjanje stanja
+    
+
+
+  },
+  getters:{  //Čitanje
+
+    
+
+  },
+  actions: {
+    
+  },
   modules: {},
+
 });

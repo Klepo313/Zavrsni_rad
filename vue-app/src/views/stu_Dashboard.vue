@@ -16,7 +16,7 @@
             <label for="">Last visited eCourses</label>
             <eCourse 
                 v-for="naziv in nazivi || profe in prof"
-                :key="naziv"
+                :key="naziv.id"
                 :naziv="naziv"
                 :prof="profe"
             />
