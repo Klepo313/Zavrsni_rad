@@ -53,7 +53,20 @@ export default{
     font-size: 18px;
     line-height: 160%;
 }
+
 .courseAdmin{
+    font-size: 16px;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+#oneCourse{
+    display: block;
+    text-align: center;
+    background-color: red;
+}
+
+span{
     font-size: 16px;
     opacity: 0.8;
     font-weight: 400;
