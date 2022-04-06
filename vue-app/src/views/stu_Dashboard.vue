@@ -13,13 +13,23 @@
             <img class="icons" src="../assets/searchIcon.svg" alt="search">
         </div>
         <div class="courseContainer">
-            <label for="">Last visited eCourses</label>
+            <!--
+                <label for="">Last visited eCourses</label>
             <eCourse 
-                v-for="naziv in nazivi || profe in prof"
+                v-for="naziv in nazivi"
                 :key="naziv.id"
                 :naziv="naziv"
                 :prof="profe"
             />
+            -->
+            <label for="">Last visited eCourses</label>
+            <eCourse 
+                v-for="obj in disObject"
+                :key="obj.id"
+                :naziv="obj.nazivPredmeta"
+                :prof="obj.profesor"
+            /> 
+            <eCourse/>
         </div>
     </div>
 </template>
@@ -36,31 +46,58 @@ export default {
     },
     data() {
         return {
-            nazivi: [],
-            prof: []
+           //nazivi: [],
+           //prof: [],
+            disObject: {
+                /*
+                
+                    let ec_naziv
+                    let ec_prof
+                    const petarpan = new Object();
+                    for (let i = 0; i < parsedJson.length; i++) {
+                        ec_naziv = parsedJson[i].nap_naziv
+                        ec_prof = parsedJson[i].osa_ime_p + " " + parsedJson[i].osa_prezime_p
+
+                        //petarpan.id = i;
+                        //petarpan.nazivPredmeta = ec_naziv
+                        //petarpan.profesor = ec_prof
+//
+                        this.disObject = {
+                            ...petarpan, i: {
+                                nazivPredmeta: ec_naziv,
+                                profesor: ec_prof
+                            }
+                        }
+
+                        //this.disObject.id = i;
+                        //this.disObject.nazivPredmeta = ec_naziv
+                        //this.disObject.profesor = ec_prof
+
+                        //this.disObject = petarpan
+
+                        //this.nazivi.push(ec_naziv)
+                        //this.prof.push(ec_prof)
+                    }
+
+                    //this.disObject = petarpan
+
+                    //console.log(this.nazivi, this.prof)
+                    
+                    console.log(this.disObject)
+                */ 
+            },
         }
     },
     mounted(){
+        
         let ses_uloga_id = sessionStorage.getItem('id_uloga')
         let url = "http://localhost:3000/eCourses/" + ses_uloga_id
 
         fetch(url)
            .then(response => {
                 response.json().then(parsedJson => {
+
                     console.log(parsedJson)
-
-                    let ec_naziv
-                    let ec_prof
-
-                    for (let i = 0; i < parsedJson.length; i++) {
-                        ec_naziv = parsedJson[i].nap_naziv
-                        ec_prof = parsedJson[i].osa_ime_p + " " + parsedJson[i].osa_prezime_p
-
-                        this.nazivi.push(ec_naziv)
-                        this.prof.push(ec_prof)
-                    }
-
-                    console.log(this.nazivi, this.prof)
                     
                 }) 
             })

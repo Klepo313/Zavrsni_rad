@@ -13,7 +13,7 @@
 
 <script>
 
-import sourceData from './../../data/db.json'
+//import sourceData from './../../data/db.json'
 import themeSection from '../components/eCourse_theme.vue'
 import LogoutBtn from '../components/LogoutBtn.vue'
 
@@ -27,7 +27,7 @@ export default {
             return parseInt(this.$route.params.id) 
         },
         destination(){
-            return sourceData.destinations.find(destination => destination.id === this.destinationId)
+            //return sourceData.destinations.find(destination => destination.id === this.destinationId)
         }
     }
 }

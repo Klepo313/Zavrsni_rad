@@ -1,8 +1,6 @@
 var pg = require('pg');
-//var connectionString = "postgres://qulaynxc:zwIMATnDC4p_yujWhgC1ccg1x6XpgRab@abul.db.elephantsql.com/qulaynxc";
 var connectionString = "postgres://qulaynxc:oSbL2JSJAfv11W-XDm4tFpB2GA3aj6iM@abul.db.elephantsql.com/qulaynxc"
 var pool = new pg.Client(connectionString);
-
 pool.connect()
 
 const getMjesta = (req, res) => {
@@ -13,6 +11,8 @@ const getMjesta = (req, res) => {
         res.json(results.rows)
     })
 }
+
+//var connectionString = "postgres://qulaynxc:zwIMATnDC4p_yujWhgC1ccg1x6XpgRab@abul.db.elephantsql.com/qulaynxc";
 
 const getMjesto = async (req, res) => {
     const id = parseInt(req.params.id)
