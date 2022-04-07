@@ -111,34 +111,26 @@ export default {
 
 <style scoped>
 
-h1{
+h1, h4{
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
+}
+h1{
     font-size: 35px;
     line-height: 50px;
-    /* identical to box height */
-
     letter-spacing: 0.02em;
-
-    color: #FFFFFF;
+    color: white;
 }
 h4{
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 600;
     font-size: 16px;
     line-height: 25px;
-    /* identical to box height */
-
     letter-spacing: 0.05em;
     text-transform: uppercase;
-
     color: var(--main_yellow);
 }
 .searchContainer, .courseContainer{
     margin-top: 40px;
-
     display: flex;
     flex-direction: column;
 }

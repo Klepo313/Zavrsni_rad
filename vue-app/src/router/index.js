@@ -7,6 +7,7 @@ import Profile from "../views/stu_Profile.vue";
 import eCourse_details from "../views/stu_eCourseDetails.vue";
 import Login from "../views/Login.vue";
 import WelcomePage from "../views/WelcomePage.vue";
+import UploadPage from "../views/stu_eCourseUpload.vue";
 
 import DashboardLayout from "../layouts/Dashboard_layout.vue";
 import PublicLayout from "../layouts/Public_layout.vue";
@@ -45,6 +46,11 @@ const routes = [
         path: "/eCourses/:id",
         name: "Stu_eCourseDetails",
         component: eCourse_details
+      },
+      {
+        path: "/eCourses/:id/:name",
+        name: "Stu_UploadPage",
+        component: UploadPage
       },
       {
         path: "/calendar",
