@@ -26,28 +26,37 @@
             <div>
                 <span class="sTitle">Assignment files</span>
                 <div class="upload-container">
-                    <AttachedFile />
-                    <AttachedFile />
+                    <AttachedFile 
+                        v-for="course in attcCourses"
+                        :key="course.id"
+                        :header="course.header"
+                        :image="course.image"
+                    />
                 </div>
             </div>
             <div>
                 <div class="myWorkContainer">
                     <span class="sTitle">My uploaded work</span>
-                    <div class="edit">
+                    <div class="edit" @click="openPopup">
                         <img src="../assets/editIcon.svg" alt="editIcon">
                         <span>Edit</span>
                     </div>
                 </div>
+                <!--    :image="updc.image"  -->
                 <div class="component">
-                    <UploadedCourse id="uploadedcourse" />
+                    <UploadedCourse id="uploadedcourse"
+                        v-for="updc in upldCourses"
+                        :key="updc.id"
+                        :header="updc.header"
+                    />
                 </div>
             </div>
-            <button id="btnAddAttch" type="button">
+            <button id="btnAddAttch" type="button" @click="openPopup">
                 <img src="../assets/plusIcon.svg" alt="plusIcon"> Add work
             </button>
         </div>
 
-        <div class="pop-up">
+        <div class="pop-up" ref="popup">
             <div class="divara">
                 <section class="sec1">
                     <div class="uploadPlaces">
@@ -73,7 +82,7 @@
 
                         </div>
                     </div>
-                    <button type="button" class="btnBack">Back</button>
+                    <button type="button" class="btnBack" @click="closePopup">Close</button>
                 </section>
                 <div class="fakeSection">
                     <section class="sec2">
@@ -94,7 +103,7 @@
                             <UploadedCourse class="upldcourse" />
                         </div>
                         <button id="btnSubmit">
-                            <img src="../assets/uploadIcon.svg" alt="">
+                            <img class="uploadIcon" src="../assets/uploadIcon.svg" alt="uploadIcon">
                             Submit changes
                         </button>
                     </section>
@@ -117,8 +126,31 @@ export default {
         LogoutBtn,
         AttachedFile, 
         UploadedCourse
+    },
+    data(){
+        return {
+            attcCourses: [
+                { id: 1, image: "pdf.svg", header: '7-segmentni bcd dekoder' },
+                { id: 2, image: "docx.svg", header: 'Univerzalnost Logičkih sklopova' },
+                { id: 3, image: "pptx.svg", header: 'Bistabilni multivibrator' }
+            ],
+            upldCourses: [
+                { id: 1, image: "pdf.svg", header: '4E_Klepo_Antonio_LV1' },
+                { id: 2, image: "docx.svg", header: '4E_Klepo_Antonio_LV1' }
+            ]
+        }
+    },
+    methods: {
+        openPopup(){
+            this.$refs.popup.style.display = "flex";
+        },
+        closePopup(){
+            this.$refs.popup.style.display = "none";
+        },
     }
+    
 }
+
 </script>
 
 <style scoped>
@@ -206,9 +238,9 @@ button{
 #uploadedcourse{
     margin-bottom: 15px;
 }
-/* #uploadedcourse:last-child{
+#uploadedcourse:last-child{
     margin-bottom: 0px;
-} */
+} 
 .myWorkContainer{
     display: flex;
     align-items: center;
@@ -258,7 +290,7 @@ button{
     width: 100%;
     height: 100vh;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -400,6 +432,14 @@ button{
 }
 #btnSubmit > img {
     margin-right: 15px;
+}
+#btnSubmit:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.btnBack:hover{
+    cursor: pointer;
+    opacity: 0.9;
 }
 
 </style>

@@ -33,31 +33,6 @@ const loginUser = (request, response) => {
         console.log("Pridani parametri: ")
         console.log("EMAIL: " + email + "\tPASSWORD: " + passwd)
 
-       /* pool.query(`SELECT kor_id, kor_username FROM korisnik 
-                    WHERE kor_username = '${email}' 
-                    AND kor_password = '${passwd}'`, (err, results) => {
-
-                        if(err) throw err; //U slučaju greške
-
-                        else if(typeof(results.rows[0])!=="undefined"){
-
-                            var id = results.rows[0].kor_id
-                            var kor_username = results.rows[0].kor_username
-
-                            console.log("\nPosli upita:")
-                            console.log("ID: " + id)
-                            console.log("EMAIL: " + kor_username);
-
-                            response.status(200).json(results.rows);
-
-                        } else{
-                            console.log("Greška 2")
-                            response.status(200).json({"status":"unsuccessful"}); 
-                        }
-
-                    }
-                )*/
-    
         pool.query(`SELECT kor_id, kor_username, kor_password,
                         (SELECT uv.osa_id
                         FROM   ucenici_v uv
@@ -111,7 +86,6 @@ const getUserDetails = (req, res) => {
         pool.query(`SELECT * FROM ucenici_kor_v WHERE osa_id = ${kor_id}`, (err, results) => {
             if(err) throw err;
             else{
-                console.log(results.rows)
                 res.status(200).json(results.rows); 
             }
         })

@@ -1,13 +1,13 @@
 <template>
     <main>
-        <img src="../assets/extIcons/pdf.svg" alt="pdf">
-        <h1>7-segmentni bcd dekoder</h1>
+        <img :src="require(`../assets/extIcons/${image}`)" alt="ext">
+        <h1> {{ header }} </h1>
     </main>
 </template>
 
 <script>
 export default {
-    
+  props: ['image', 'header']
 }
 </script>
 

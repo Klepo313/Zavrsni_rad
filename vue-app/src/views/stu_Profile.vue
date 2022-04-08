@@ -55,12 +55,15 @@
             </div>
         </div>
 
-        <eCourse 
-            v-for="post in posts"
-            :key="post.id"
-            :name="post.name"
-            :admin="post.admin"
-        />
+        <div class="course-content-cc">
+            <eCourse 
+                v-for="course in eCourses"
+                :key="course.id"
+                :naziv="course.name"
+                :prof="course.admin"
+            />
+        </div>
+
 
     </div>
 </template>
@@ -77,11 +80,7 @@ export default {
     //don ucenike, koji je on odjeljenje, id odjeljenja u view
     data() {
         return {
-            posts: [
-                { id: 1, name: "Predmet br. 1", admin: 'Profesor 1' },
-                { id: 2, name: "Predmet br. 2", admin: 'Profesor 2' },
-                { id: 3, name: "Predmet br. 3", admin: 'Profesor 3' }
-            ]
+            eCourses: {}
         }
     },
     mounted(){
@@ -113,12 +112,54 @@ export default {
             })
         })
         .catch(error => console.log(error))
+
+        let url1 = "http://localhost:3000/eCourses/" + ses_uloga_id
+
+        fetch(url1)
+           .then(response => {
+                response.json().then(parsedJson => {
+
+                    console.log(parsedJson)
+
+                    for(let i = 0; i < parsedJson.length ; i++){
+                        console.log(parsedJson[i].nap_id + ", " + parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p + ", " + parsedJson[i].nap_naziv)
+                        
+                        this.eCourses[i] = {
+                            id: parsedJson[i].nap_id,
+                            name: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p,
+                            admin: parsedJson[i].nap_naziv
+                        }
+                        
+                    }
+                    
+                }) 
+            })
     }
     
 }
 </script>
 
 <style scoped>
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--light_black);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 h1{
     font-family: Poppins;
@@ -185,6 +226,11 @@ h4{
 .school{
     padding-left: 20px;
     border-left: 3px solid var(--main_yellow);
+}
+.course-content-cc{
+    height: 90vh;
+    overflow-y: scroll;
+    /*outline: 1px solid red;*/
 }
 
 </style>

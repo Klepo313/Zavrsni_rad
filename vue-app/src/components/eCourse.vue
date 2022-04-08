@@ -11,13 +11,13 @@
 </template>
 
 <script>
-export default{
-    props: ['naziv', 'prof'],
-    methods:{
-        goToHome(){
-            this.$router.push('/eCourses/4'); 
-        }
+export default {
+  props: ['naziv', 'prof'],
+  methods: {
+      goToHome(){
+        this.$router.push('/eCourses/4'); 
     }
+  }
 }
 </script>
 

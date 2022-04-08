@@ -1,8 +1,8 @@
 <template>
     <main>
         <div>
-            <img src="../assets/extIcons/pptx.svg" alt="pdf">
-            <h1>Ivo_Ivić_LV1.pptx</h1>
+            <!-- <img :src="require(`../assets/extIcons/${image}`)" alt="ext"> -->
+            <h1> {{ header }} </h1>
         </div>
         <button id="btnRemove">
             <img src="../assets/removeIcon.svg" alt="removeX">
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-    
+  props: ['image', 'header']
 }
 </script>
 

@@ -10,7 +10,7 @@
       <div class="mainScreen">
         <nav>
 
-          <h2>upCloud.</h2>
+          <h2 @click="this.$router.push('/')" style="cursor: pointer;" >upCloud.</h2>
           
           <ul>
               

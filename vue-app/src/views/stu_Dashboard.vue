@@ -13,23 +13,16 @@
             <img class="icons" src="../assets/searchIcon.svg" alt="search">
         </div>
         <div class="courseContainer">
-            <!--
-                <label for="">Last visited eCourses</label>
-            <eCourse 
-                v-for="naziv in nazivi"
-                :key="naziv.id"
-                :naziv="naziv"
-                :prof="profe"
-            />
-            -->
             <label for="">Last visited eCourses</label>
-            <eCourse 
-                v-for="obj in disObject"
-                :key="obj.id"
-                :naziv="obj.nazivPredmeta"
-                :prof="obj.profesor"
-            /> 
-            <eCourse/>
+            <div class="course-content-cc">
+                <eCourse 
+                    v-for="course in eCourses"
+                    :key="course.id"
+                    :naziv="course.name"
+                    :prof="course.admin"
+                />
+            </div>
+            
         </div>
     </div>
 </template>
@@ -46,49 +39,10 @@ export default {
     },
     data() {
         return {
-           //nazivi: [],
-           //prof: [],
-            disObject: {
-                /*
-                
-                    let ec_naziv
-                    let ec_prof
-                    const petarpan = new Object();
-                    for (let i = 0; i < parsedJson.length; i++) {
-                        ec_naziv = parsedJson[i].nap_naziv
-                        ec_prof = parsedJson[i].osa_ime_p + " " + parsedJson[i].osa_prezime_p
-
-                        //petarpan.id = i;
-                        //petarpan.nazivPredmeta = ec_naziv
-                        //petarpan.profesor = ec_prof
-//
-                        this.disObject = {
-                            ...petarpan, i: {
-                                nazivPredmeta: ec_naziv,
-                                profesor: ec_prof
-                            }
-                        }
-
-                        //this.disObject.id = i;
-                        //this.disObject.nazivPredmeta = ec_naziv
-                        //this.disObject.profesor = ec_prof
-
-                        //this.disObject = petarpan
-
-                        //this.nazivi.push(ec_naziv)
-                        //this.prof.push(ec_prof)
-                    }
-
-                    //this.disObject = petarpan
-
-                    //console.log(this.nazivi, this.prof)
-                    
-                    console.log(this.disObject)
-                */ 
-            },
+            eCourses: {}
         }
     },
-    mounted(){
+    created(){
         
         let ses_uloga_id = sessionStorage.getItem('id_uloga')
         let url = "http://localhost:3000/eCourses/" + ses_uloga_id
@@ -98,6 +52,17 @@ export default {
                 response.json().then(parsedJson => {
 
                     console.log(parsedJson)
+
+                    for(let i = 0; i < parsedJson.length ; i++){
+                        console.log(parsedJson[i].nap_id + ", " + parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p + ", " + parsedJson[i].nap_naziv)
+                        
+                        this.eCourses[i] = {
+                            id: parsedJson[i].nap_id,
+                            name: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p,
+                            admin: parsedJson[i].nap_naziv
+                        }
+                        
+                    }
                     
                 }) 
             })
@@ -134,6 +99,33 @@ h4{
     display: flex;
     flex-direction: column;
 }
+.course-content-cc{
+    height: 90vh;
+    overflow-y: scroll;
+    /*outline: 1px solid red;*/
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--light_black);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 label{
     font-family: Poppins;
     font-style: normal;
