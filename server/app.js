@@ -18,6 +18,8 @@ app.get("/mjesta/:id", pool.getMjesto)
 app.get("/login/:email/:password", pool.loginUser)
 app.get("/userDetails/:id", pool.getUserDetails)
 app.get("/eCourses/:id", pool.getKolegij)
+app.get("/eCourses/:id/:id", pool.getUploads)
+app.get("/eCourses/:id/:id/:id", pool.getUploadDetails)
 
 app.listen(port, () => {
     var host = "localhost";

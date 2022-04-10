@@ -1,11 +1,11 @@
 <template>
     <div class="app" @click="goToHome()">
         <div class="short-container">
-            <span class="abbr">LV1</span>
+            <span class="abbr"> {{ abbr }} </span>
         </div>
         <div class="long-container">
-            <h2>Ponavljanje utvrđenog gradiva</h2>
-            <h3>Due 28.01.2022. 12:00</h3>
+            <h2> {{ title }} </h2>
+            <h3> {{ due }} </h3>
         </div>
     </div>
 </template>
@@ -13,9 +13,19 @@
 <script>
 export default {
     name: "UploadContainer",
+    props: [
+        'id', 'abbr', 'title', 'due'
+    ],
     methods:{
         goToHome(){
-            this.$router.push('/eCourses/4/Ponavljanje'); 
+            let upload_id = this.id
+            console.log(upload_id)
+            sessionStorage.setItem('upload_id', upload_id);
+
+            let eCourse_id = sessionStorage.getItem('eCourse_id')
+            console.log(eCourse_id)
+
+            this.$router.push('/eCourses/' + eCourse_id + '/' + upload_id); 
         }
     }
 }
@@ -65,6 +75,18 @@ export default {
     h3{
         font-size: 15px;
         opacity: 0.6;
+    }
+    .app{
+        margin-bottom: 20px;
+    }
+    .app:hover{
+        opacity: 0.7;
+        cursor: pointer;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        /*
+        width: 95%;
+        outline: 2px solid var(--main_yellow);
+        */
     }
     
 </style>

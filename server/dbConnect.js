@@ -95,13 +95,74 @@ const getUserDetails = (req, res) => {
     }
 }
 
+/* const getKolegij = (req, res) => {
+     const kor_id = parseInt(req.params.id)
+     pool.query(`SELECT nap_id, nap_naziv, osa_id_p, osa_ime_p, osa_prezime_p
+                 FROM   predmeti_all_v
+                 WHERE  osa_id_u = ${ kor_id }
+                 ORDER  BY nap_id `, 
+         (err, results) => {
+             if (err) console.log(err);
+             else{
+                 res.json(results.rows)
+             }
+     })
+ }*/
+
 const getKolegij = (req, res) => {
     const kor_id = parseInt(req.params.id)
 
-    pool.query(`SELECT nap_id, nap_naziv, osa_id_p, osa_ime_p, osa_prezime_p
-                FROM   predmeti_all_v
-                WHERE  osa_id_u = ${ kor_id }
-                ORDER  BY nap_id `, 
+    pool.query(`select distinct prd_id, nap_naziv,  osa_ime_p, osa_prezime_p--, , npr_id, npr_naziv, dok_naziv, odj_sif, ucn_id, o2.osa_id, o2.osa_ime osa_ime_u, o2.osa_prezime osa_prezime_u
+                from profesor_predmet_v p
+                , dokumenti d
+                , predmeti_dokumenti pd
+                , odjeljenje o
+                , razred r
+                , ucenici
+                , osoba o2
+            where prd_id = pdk_prd_id
+                and dok_id = pdk_dok_id
+                and raz_id = prd_raz_id
+                and odj_raz_id = raz_id
+                and odj_id = ucn_odj_id
+                and ucn_osa_id = osa_id
+                and dok_dok_id is null
+                and osa_id = ${kor_id}`, 
+        (err, results) => {
+            if (err) console.log(err);
+            else{
+                res.json(results.rows)
+            }
+    })
+}
+
+const getUploads = (req, res) => {
+    const eCourse_id = parseInt(req.params.id)
+
+    pool.query(`select dok_id, dok_naziv, dok_opis, vrd_sif, vrd_naziv, to_char(dok_datdo, 'dd.mm.yyyy') dok_datdo, concat(to_char(dok_vrido, 'hh24:mi'), ' h') dok_vrido  
+                from predmeti p
+                , dokumenti d
+                , vrste_dokumenata vd 
+                , predmeti_dokumenti pd
+            where prd_id = pdk_prd_id
+                and dok_id = pdk_dok_id 
+                and vrd_id = dok_vrd_id
+                and prd_id = ${eCourse_id} `, 
+        (err, results) => {
+            if (err) console.log(err);
+            else{
+                res.json(results.rows)
+            }
+    })
+
+}
+
+const getUploadDetails = (req, res) => {
+    const upload_id = parseInt(req.params.id)
+
+    pool.query(`select dat_id, dat_naziv
+                from datoteke d2
+            where dat_dok_id = ${upload_id} `, 
         (err, results) => {
             if (err) console.log(err);
             else{
@@ -116,5 +177,7 @@ module.exports = {
     getMjesto,
     loginUser,
     getUserDetails,
-    getKolegij
+    getKolegij,
+    getUploads,
+    getUploadDetails
 } 

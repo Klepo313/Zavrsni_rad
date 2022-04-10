@@ -13,18 +13,16 @@
                 <h1>My eCourses</h1>
                 <h4>student</h4>
             </div>
-            <!-- <div id="join_eCourse">
-                <img src="../assets/person-add.svg" alt="">
-                <span>Join eCourse</span>
-            </div> -->
             <LogoutBtn />
         </div>
         <div class="courseContainer">
             <label for="">All attending eCourses</label>
             <div class="course-content-cc">
+                <!-- @click="getPropValues(this)" -->
                 <eCourse 
                     v-for="course in eCourses"
                     :key="course.id"
+                    :id="course.id"
                     :naziv="course.name"
                     :prof="course.admin"
                 />
@@ -56,15 +54,13 @@ export default {
            .then(response => {
                 response.json().then(parsedJson => {
 
-                    console.log(parsedJson)
-
                     for(let i = 0; i < parsedJson.length ; i++){
-                        console.log(parsedJson[i].nap_id + ", " + parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p + ", " + parsedJson[i].nap_naziv)
+                        console.log(parsedJson[i].prd_id + ", " + parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p + ", " + parsedJson[i].nap_naziv)
                         
                         this.eCourses[i] = {
-                            id: parsedJson[i].nap_id,
-                            name: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p,
-                            admin: parsedJson[i].nap_naziv
+                            id: parsedJson[i].prd_id,
+                            name: parsedJson[i].nap_naziv,
+                            admin: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p
                         }
                         
                     }

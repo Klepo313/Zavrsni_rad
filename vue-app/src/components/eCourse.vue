@@ -12,11 +12,15 @@
 
 <script>
 export default {
-  props: ['naziv', 'prof'],
+  props: ['id', 'naziv', 'prof'],
   methods: {
-      goToHome(){
-        this.$router.push('/eCourses/4'); 
-    }
+    goToHome(){
+        let eCourse_id = this.id
+        console.log("ID: " + eCourse_id)
+        sessionStorage.setItem('eCourse_id', eCourse_id);
+        this.$router.push('/eCourses/' + eCourse_id); 
+    },
+    
   }
 }
 </script>

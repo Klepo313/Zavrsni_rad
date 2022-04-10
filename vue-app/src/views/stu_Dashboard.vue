@@ -53,13 +53,13 @@ export default {
 
                     console.log(parsedJson)
 
-                    for(let i = 0; i < parsedJson.length ; i++){
+                    for(let i = 0; i < parsedJson.length - 10 ; i++){
                         console.log(parsedJson[i].nap_id + ", " + parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p + ", " + parsedJson[i].nap_naziv)
                         
                         this.eCourses[i] = {
                             id: parsedJson[i].nap_id,
-                            name: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p,
-                            admin: parsedJson[i].nap_naziv
+                            name: parsedJson[i].nap_naziv,
+                            admin: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p
                         }
                         
                     }

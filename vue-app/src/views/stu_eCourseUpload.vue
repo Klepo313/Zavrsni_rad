@@ -9,15 +9,15 @@
         </div>
         <div class="content">
             <div class="mainTitle">
-                <h2>Ponavljanje utvrđenog gradiva · lv1</h2>
+                <h2 ref="header">Ponavljanje utvrđenog gradiva · lv1</h2>
             </div>
             <div>
                 <span class="sTitle">Due</span>
-                <p class="sPrghf">28.01.2022. 12:00 PM</p>
+                <p class="sPrghf" ref="due">28.01.2022. 12:00 PM</p>
             </div>
             <div>
                 <span class="sTitle">Assignment description</span>
-                <p class="sPrghf">
+                <p class="sPrghf" ref="description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non auctor 
                     massa, in ultricies arcu. In eleifend, tortor sit amet egestas laoreet, nisl neque 
                     viverra diam, nec consectetur tortor mauris id elit.
@@ -29,7 +29,7 @@
                     <AttachedFile 
                         v-for="course in attcCourses"
                         :key="course.id"
-                        :header="course.header"
+                        :header="course.title"
                         :image="course.image"
                     />
                 </div>
@@ -129,11 +129,7 @@ export default {
     },
     data(){
         return {
-            attcCourses: [
-                { id: 1, image: "pdf.svg", header: '7-segmentni bcd dekoder' },
-                { id: 2, image: "docx.svg", header: 'Univerzalnost Logičkih sklopova' },
-                { id: 3, image: "pptx.svg", header: 'Bistabilni multivibrator' }
-            ],
+            attcCourses: {},
             upldCourses: [
                 { id: 1, image: "pdf.svg", header: '4E_Klepo_Antonio_LV1' },
                 { id: 2, image: "docx.svg", header: '4E_Klepo_Antonio_LV1' }
@@ -147,6 +143,43 @@ export default {
         closePopup(){
             this.$refs.popup.style.display = "none";
         },
+    },
+    mounted(){
+        let ses_uloga_id = sessionStorage.getItem('id_uloga')
+        let eCourse_id = sessionStorage.getItem('eCourse_id')
+        let upload_id = sessionStorage.getItem('upload_id')
+        let url = "http://localhost:3000/eCourses/"+ ses_uloga_id + "/" + eCourse_id + "/" + upload_id
+
+        const header = this.$refs.header
+        const due = this.$refs.due
+        const description = this.$refs.description
+
+        header.innerHTML = sessionStorage.getItem('dok_naziv')
+        due.innerHTML = sessionStorage.getItem('dok_due')
+        description.innerHTML = sessionStorage.getItem('dok_opis')
+
+        fetch(url)
+        .then(response => {
+            response.json().then(parsedJson => {
+
+                console.log(parsedJson)
+
+                for(let i = 0; i < parsedJson.length ; i++){
+                        //console.log(parsedJson[i].dok_id + ", "+ parsedJson[i].vrd_sif + ", " + parsedJson[i].dok_naziv + ',\n ' + parsedJson[i].dok_datdo + " " + parsedJson[i].dok_vrido)
+                  
+                        console.log(parsedJson[i].dat_naziv)
+
+                        this.attcCourses[i] = {
+                            id: parsedJson[i].dat_id,
+                            title: parsedJson[i].dat_naziv,
+                            image: "pdf.svg"
+                        }
+                     
+                    }
+
+            }) 
+        })
+
     }
     
 }
