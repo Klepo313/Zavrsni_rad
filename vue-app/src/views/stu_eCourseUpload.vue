@@ -9,11 +9,11 @@
         </div>
         <div class="content">
             <div class="mainTitle">
-                <h2 ref="header">Ponavljanje utvrđenog gradiva · lv1</h2>
+                <h2 ref="header"></h2>
             </div>
             <div>
                 <span class="sTitle">Due</span>
-                <p class="sPrghf" ref="due">28.01.2022. 12:00 PM</p>
+                <p class="sPrghf" ref="due"></p>
             </div>
             <div>
                 <span class="sTitle">Assignment description</span>
@@ -90,9 +90,9 @@
                             <h2 class="h2PopUp">Drag 'n' drop area</h2>
                         </div>
                         <div class="dndArea">
-                            
+                            <span>Drag and drop</span> 
                         </div>
-                        <input class="inpUpload" type="file">
+                        <input ref="file_upload" class="inpUpload" type="file" multiple="true">
                     </section>
                     <section class="sec3">
                         <div class="mainTitle">
@@ -102,7 +102,7 @@
                             <UploadedCourse class="upldcourse" />
                             <UploadedCourse class="upldcourse" />
                         </div>
-                        <button id="btnSubmit">
+                        <button id="btnSubmit" @click="uploadFiles()">
                             <img class="uploadIcon" src="../assets/uploadIcon.svg" alt="uploadIcon">
                             Submit changes
                         </button>
@@ -143,6 +143,21 @@ export default {
         closePopup(){
             this.$refs.popup.style.display = "none";
         },
+        uploadFiles() {
+
+            //https://javacodepoint.com/drag-and-drop-file-upload-using-javascript/
+
+            var files = this.$refs.file_upload.files;
+            if(files.length==0){
+                alert("Please first choose or drop any file(s)...");
+                return;
+            }
+            var filenames="";
+            for(var i=0;i<files.length;i++){
+                filenames+=files[i].name+"\n";
+            }
+            alert("Selected file(s) :\n____________________\n"+filenames);
+        }
     },
     mounted(){
         let ses_uloga_id = sessionStorage.getItem('id_uloga')
@@ -473,6 +488,15 @@ button{
 .btnBack:hover{
     cursor: pointer;
     opacity: 0.9;
+}
+.dndArea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dndArea > span {
+    color: rgb(138, 138, 138);
+    cursor: default;
 }
 
 </style>

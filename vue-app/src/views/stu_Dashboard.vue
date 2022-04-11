@@ -18,6 +18,7 @@
                 <eCourse 
                     v-for="course in eCourses"
                     :key="course.id"
+                    :id="course.id"
                     :naziv="course.name"
                     :prof="course.admin"
                 />
@@ -44,7 +45,7 @@ export default {
     },
     created(){
         
-        let ses_uloga_id = sessionStorage.getItem('id_uloga')
+        /*let ses_uloga_id = sessionStorage.getItem('id_uloga')
         let url = "http://localhost:3000/eCourses/" + ses_uloga_id
 
         fetch(url)
@@ -58,6 +59,27 @@ export default {
                         
                         this.eCourses[i] = {
                             id: parsedJson[i].nap_id,
+                            name: parsedJson[i].nap_naziv,
+                            admin: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p
+                        }
+                        
+                    }
+                    
+                }) 
+            })*/
+
+        let ses_uloga_id = sessionStorage.getItem('id_uloga')
+        let url = "http://localhost:3000/eCourses/" + ses_uloga_id
+
+        fetch(url)
+           .then(response => {
+                response.json().then(parsedJson => {
+
+                    for(let i = 0; i < parsedJson.length ; i++){
+                        console.log(parsedJson[i].prd_id + ", " + parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p + ", " + parsedJson[i].nap_naziv)
+                        
+                        this.eCourses[i] = {
+                            id: parsedJson[i].prd_id,
                             name: parsedJson[i].nap_naziv,
                             admin: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p
                         }

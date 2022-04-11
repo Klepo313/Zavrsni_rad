@@ -5,7 +5,7 @@
         </div>
         <div class="long-container">
             <h2> {{ title }} </h2>
-            <h3> {{ due }} </h3>
+            <h3> Due: {{ due }} </h3>
         </div>
     </div>
 </template>
