@@ -19,11 +19,12 @@ export default {
     methods:{
         goToHome(){
             let upload_id = this.id
-            console.log(upload_id)
+            //let upload_title = this.title
+            
             sessionStorage.setItem('upload_id', upload_id);
+            //sessionStorage.setItem('upload_title', upload_title)
 
             let eCourse_id = sessionStorage.getItem('eCourse_id')
-            console.log(eCourse_id)
 
             this.$router.push('/eCourses/' + eCourse_id + '/' + upload_id); 
         }

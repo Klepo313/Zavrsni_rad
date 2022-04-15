@@ -3,7 +3,7 @@
         <div class="upperInfo">
             <div>
                 <h1 ref="hd1">My eCourses</h1>
-                <h4>student</h4>
+                <h4 ref="subh">student</h4>
             </div>
             <LogoutBtn />
         </div>
@@ -30,6 +30,10 @@ export default {
             //return sourceData.destinations.find(destination => destination.id === this.destinationId)
             return null;
         }
+    },
+    mounted(){
+        let eCourse_title = sessionStorage.getItem('eCourse_title')
+        this.$refs.hd1.innerHTML = eCourse_title
     }
 }
 

@@ -2,7 +2,7 @@
     <div id="app">
         <div class="upperInfo">
             <div>
-                <h1 ref="hd1">Digitalna logika</h1>
+                <h1 ref="hd1"></h1>
                 <h4>ELEKTROTEHNIČKA ŠKOLA SPLIT - 4.e</h4>
             </div>
             <LogoutBtn />
@@ -147,6 +147,8 @@ export default {
 
             //https://javacodepoint.com/drag-and-drop-file-upload-using-javascript/
 
+            // Umisto My eCourses postavi ime predmeta
+
             var files = this.$refs.file_upload.files;
             if(files.length==0){
                 alert("Please first choose or drop any file(s)...");
@@ -194,6 +196,10 @@ export default {
 
             }) 
         })
+
+        let eCourse_title = sessionStorage.getItem('eCourse_title')
+        console.log(eCourse_title)
+        this.$refs.hd1.innerHTML = eCourse_title
 
     }
     

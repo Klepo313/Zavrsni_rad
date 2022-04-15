@@ -10,7 +10,7 @@
         </div>
         <div class="upperInfo">
             <div>
-                <h1>My eCourses</h1>
+                <h1 ref="header">My eCourses</h1>
                 <h4>student</h4>
             </div>
             <LogoutBtn />

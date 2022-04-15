@@ -16,8 +16,11 @@ export default {
   methods: {
     goToHome(){
         let eCourse_id = this.id
-        console.log("ID: " + eCourse_id)
+        let eCourse_title = this.naziv
+
         sessionStorage.setItem('eCourse_id', eCourse_id);
+        sessionStorage.setItem('eCourse_title', eCourse_title)
+
         this.$router.push('/eCourses/' + eCourse_id); 
     },
     
