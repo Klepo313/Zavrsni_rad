@@ -3,7 +3,7 @@
         <div class="upperInfo">
             <div>
                 <h1 ref="hd1"></h1>
-                <h4>ELEKTROTEHNIČKA ŠKOLA SPLIT - 4.e</h4>
+                <h4 ref="subh">ELEKTROTEHNIČKA ŠKOLA SPLIT - 4.e</h4>
             </div>
             <LogoutBtn />
         </div>
@@ -92,7 +92,7 @@
                         <div class="dndArea">
                             <span>Drag and drop</span> 
                         </div>
-                        <input ref="file_upload" class="inpUpload" type="file" multiple="true">
+                        <input ref="file_upload" class="inpUpload" type="file" multiple="true" @change="changeFile" >
                     </section>
                     <section class="sec3">
                         <div class="mainTitle">
@@ -102,7 +102,7 @@
                             <UploadedCourse class="upldcourse" />
                             <UploadedCourse class="upldcourse" />
                         </div>
-                        <button id="btnSubmit" @click="uploadFiles()">
+                        <button id="btnSubmit" ref="btnSubmit">
                             <img class="uploadIcon" src="../assets/uploadIcon.svg" alt="uploadIcon">
                             Submit changes
                         </button>
@@ -133,7 +133,8 @@ export default {
             upldCourses: [
                 { id: 1, image: "pdf.svg", header: '4E_Klepo_Antonio_LV1' },
                 { id: 2, image: "docx.svg", header: '4E_Klepo_Antonio_LV1' }
-            ]
+            ],
+            file_binary: ""
         }
     },
     methods: {
@@ -147,18 +148,21 @@ export default {
 
             //https://javacodepoint.com/drag-and-drop-file-upload-using-javascript/
 
-            // Umisto My eCourses postavi ime predmeta
+            /*
+            // var files = this.$refs.file_upload.files;
+            // console.log("Files: " + files[0])
+            // if(files.length==0){
+            //     alert("Please first choose or drop any file(s)...");
+            //     return;
+            // }
+            // var filenames="";
+            // for(var i=0;i<files.length;i++){
+            //     filenames+=files[i].name+"\n";
+            // }
+            // alert("Selected file(s) :\n____________________\n\n"+filenames);
 
-            var files = this.$refs.file_upload.files;
-            if(files.length==0){
-                alert("Please first choose or drop any file(s)...");
-                return;
-            }
-            var filenames="";
-            for(var i=0;i<files.length;i++){
-                filenames+=files[i].name+"\n";
-            }
-            alert("Selected file(s) :\n____________________\n"+filenames);
+*/
+
         }
     },
     mounted(){
@@ -175,16 +179,18 @@ export default {
         due.innerHTML = sessionStorage.getItem('dok_due')
         description.innerHTML = sessionStorage.getItem('dok_opis')
 
+        //let file_upload = this.$refs.file_upload
+
         fetch(url)
         .then(response => {
             response.json().then(parsedJson => {
 
-                console.log(parsedJson)
+                //console.log(parsedJson)
 
                 for(let i = 0; i < parsedJson.length ; i++){
                         //console.log(parsedJson[i].dok_id + ", "+ parsedJson[i].vrd_sif + ", " + parsedJson[i].dok_naziv + ',\n ' + parsedJson[i].dok_datdo + " " + parsedJson[i].dok_vrido)
                   
-                        console.log(parsedJson[i].dat_naziv)
+                        //console.log(parsedJson[i].dat_naziv)
 
                         this.attcCourses[i] = {
                             id: parsedJson[i].dat_id,
@@ -198,8 +204,85 @@ export default {
         })
 
         let eCourse_title = sessionStorage.getItem('eCourse_title')
-        console.log(eCourse_title)
+        let stu_direction = sessionStorage.getItem('stu_direction')
+        let stu_class = sessionStorage.getItem('stu_class')
+        
         this.$refs.hd1.innerHTML = eCourse_title
+        this.$refs.subh.innerHTML = stu_direction + " - " + stu_class
+
+
+        /* hijeroglifi */
+
+        var file_input = this.$refs.file_upload
+        var base64String
+
+        function changeFile() {
+            //console.log(files[0]);
+            for(let i = 0; i < file_input.files.length; i++) {
+
+                var reader = new FileReader();
+
+                reader.onloadend = () => {
+                    base64String = reader.result
+                        .replace('data:', '')
+                        .replace(/^.+,/, '');
+
+                    console.log(base64String)
+
+                    //this.file_binary = base64String;
+                }
+                //reader.readAsText(file_input.files[i]);
+                reader.readAsDataURL(file_input.files[i]);
+            }
+        }
+
+        file_input.addEventListener('change', changeFile);
+
+        
+        this.$refs.btnSubmit.addEventListener("click", () => {
+
+            let dat_title = file_input.files[0].name;
+            console.log(dat_title)
+            console.log(base64String);
+
+/*
+            const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
+                const byteCharacters = atob(b64Data);
+                const byteArrays = [];
+
+                for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                    const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                    const byteNumbers = new Array(slice.length);
+                    for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                    }
+
+                    const byteArray = new Uint8Array(byteNumbers);
+                    byteArrays.push(byteArray);
+                }
+
+                const blob = new Blob(byteArrays, {type: contentType});
+                return blob;
+            }
+
+            const blob = b64toBlob(this.file_binary);
+
+            console.log("Blob:\n" + blob)*/
+
+            let url_files = "http://localhost:3000/getBlobFile/" + dat_title + "/" + base64String
+
+            fetch(url_files)
+            .then(response => {
+                response.json().then(parsedJson => {
+
+                    console.log(parsedJson)
+
+                }) 
+            })
+
+        })
+
 
     }
     

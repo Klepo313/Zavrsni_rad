@@ -20,6 +20,8 @@ app.get("/userDetails/:id", pool.getUserDetails)
 app.get("/eCourses/:id", pool.getKolegij)
 app.get("/eCourses/:id/:id", pool.getUploads)
 app.get("/eCourses/:id/:id/:id", pool.getUploadDetails)
+//app.post("/blobFile/:naziv", pool.postBlobFile)
+app.get("/getBlobFile/:naziv/:file_url", pool.getBlobFile)
 
 app.listen(port, () => {
     var host = "localhost";

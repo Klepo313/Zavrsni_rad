@@ -171,6 +171,34 @@ const getUploadDetails = (req, res) => {
     })
 }
 
+const postBlobFile = (req, res) => {
+    const naziv_dat = req.params.naziv
+    //const binary_dat = req.params.binary
+
+    pool.query(` insert into test_blob (dat_naziv)
+                 values (${naziv_dat})`, 
+        (err, results) => {
+            if (err) console.log(err);
+            else{
+                res.json(results.rows)
+            }
+    })
+}
+
+const getBlobFile = (req, res) => {
+    const naziv_dat = req.params.naziv
+    const file_url = req.params.file_url
+
+    pool.query(`select fn_puni_blob ('${naziv_dat}', '${file_url}')`, 
+        (err, results) => {
+            if (err) console.log(err);
+            else{
+                res.json(results.rows)
+            }
+    })
+}
+
+
 module.exports = {
     pool,
     getMjesta,
@@ -179,5 +207,7 @@ module.exports = {
     getUserDetails,
     getKolegij,
     getUploads,
-    getUploadDetails
+    getUploadDetails,
+    postBlobFile,
+    getBlobFile,
 } 

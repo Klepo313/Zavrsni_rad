@@ -2,7 +2,7 @@
     <main>
         <div class="upperInfo">
             <div>
-                <h1 ref="hd1">My eCourses</h1>
+                <h1 ref="hd1"></h1>
                 <h4 ref="subh">student</h4>
             </div>
             <LogoutBtn />
