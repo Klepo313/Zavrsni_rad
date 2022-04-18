@@ -227,7 +227,7 @@ export default {
                         .replace('data:', '')
                         .replace(/^.+,/, '');
 
-                    console.log(base64String)
+                    //console.log(base64String)
 
                     //this.file_binary = base64String;
                 }
@@ -242,8 +242,8 @@ export default {
         this.$refs.btnSubmit.addEventListener("click", () => {
 
             let dat_title = file_input.files[0].name;
-            console.log(dat_title)
-            console.log(base64String);
+            // console.log(dat_title)
+            // console.log(base64String);
 
 /*
             const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
@@ -270,13 +270,15 @@ export default {
 
             console.log("Blob:\n" + blob)*/
 
-            let url_files = "http://localhost:3000/getBlobFile/" + dat_title + "/" + base64String
+            let url_files = "http://localhost:3000/blobFile/" + dat_title + "/" + base64String
 
-            fetch(url_files)
+            fetch(url_files, {
+                method: "POST"
+            })
             .then(response => {
                 response.json().then(parsedJson => {
 
-                    console.log(parsedJson)
+                    console.log(parsedJson);
 
                 }) 
             })

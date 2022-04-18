@@ -171,12 +171,36 @@ const getUploadDetails = (req, res) => {
     })
 }
 
+// const getBlobFile = (req, res) => {
+//     const naziv_dat = req.params.naziv
+//     const file_url = req.params.url
+
+//     pool.query(`select fn_puni_blob ('${naziv_dat}', '${file_url}')`, 
+//         (err, results) => {
+//             if (err) console.log(err);
+//             else{
+//                 res.json(results.rows)
+//             }
+//     })
+// }
+
 const postBlobFile = (req, res) => {
     const naziv_dat = req.params.naziv
-    //const binary_dat = req.params.binary
+    const file_url = req.params.url
 
-    pool.query(` insert into test_blob (dat_naziv)
-                 values (${naziv_dat})`, 
+    console.log("NAZIV: " + naziv_dat)
+    console.log("URL_FILE: " + file_url)
+
+    // const byteCharacters = atob(b64);
+    // const byteNumbers = new Array(byteCharacters.length);
+    // for (let i = 0; i < byteCharacters.length; i++) {
+    // byteNumbers[i] = byteCharacters.charCodeAt(i);
+    // }
+    // const byteArray = new Uint8Array(byteNumbers);
+    // const blob = new Blob([byteArray], {type: 'audio/mp3'});
+
+    pool.query(`insert into test_blob (dat_naziv, dat_blob) 
+                values ('${naziv_dat}', decode('${file_url}', 'base64'))`, 
         (err, results) => {
             if (err) console.log(err);
             else{
@@ -184,20 +208,6 @@ const postBlobFile = (req, res) => {
             }
     })
 }
-
-const getBlobFile = (req, res) => {
-    const naziv_dat = req.params.naziv
-    const file_url = req.params.file_url
-
-    pool.query(`select fn_puni_blob ('${naziv_dat}', '${file_url}')`, 
-        (err, results) => {
-            if (err) console.log(err);
-            else{
-                res.json(results.rows)
-            }
-    })
-}
-
 
 module.exports = {
     pool,
@@ -209,5 +219,5 @@ module.exports = {
     getUploads,
     getUploadDetails,
     postBlobFile,
-    getBlobFile,
+    //getBlobFile,
 } 
