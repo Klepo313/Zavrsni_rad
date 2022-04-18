@@ -186,11 +186,12 @@ const getUploadDetails = (req, res) => {
 
 const postBlobFile = (req, res) => {
     const naziv_dat = req.params.naziv
-    const file_url = req.params.url
+    var file_url = req.params.url
 
     console.log("NAZIV: " + naziv_dat)
     console.log("URL_FILE: " + file_url)
-
+    console.log("URL_SIZE: " + file_url.length)
+    
     // const byteCharacters = atob(b64);
     // const byteNumbers = new Array(byteCharacters.length);
     // for (let i = 0; i < byteCharacters.length; i++) {

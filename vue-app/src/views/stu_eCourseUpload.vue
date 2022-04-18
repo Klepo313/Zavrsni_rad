@@ -227,7 +227,8 @@ export default {
                         .replace('data:', '')
                         .replace(/^.+,/, '');
 
-                    //console.log(base64String)
+                    console.log(base64String)
+                    console.log("SIZE: " + base64String.length)
 
                     //this.file_binary = base64String;
                 }
