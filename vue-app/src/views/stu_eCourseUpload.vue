@@ -143,26 +143,6 @@ export default {
         },
         closePopup(){
             this.$refs.popup.style.display = "none";
-        },
-        uploadFiles() {
-
-            //https://javacodepoint.com/drag-and-drop-file-upload-using-javascript/
-
-            /*
-            // var files = this.$refs.file_upload.files;
-            // console.log("Files: " + files[0])
-            // if(files.length==0){
-            //     alert("Please first choose or drop any file(s)...");
-            //     return;
-            // }
-            // var filenames="";
-            // for(var i=0;i<files.length;i++){
-            //     filenames+=files[i].name+"\n";
-            // }
-            // alert("Selected file(s) :\n____________________\n\n"+filenames);
-
-*/
-
         }
     },
     mounted(){
@@ -180,6 +160,8 @@ export default {
         description.innerHTML = sessionStorage.getItem('dok_opis')
 
         //let file_upload = this.$refs.file_upload
+
+        
 
         fetch(url)
         .then(response => {
@@ -217,7 +199,6 @@ export default {
         var base64String
 
         function changeFile() {
-            //console.log(files[0]);
             for(let i = 0; i < file_input.files.length; i++) {
 
                 var reader = new FileReader();
@@ -230,48 +211,22 @@ export default {
                     console.log(base64String)
                     console.log("SIZE: " + base64String.length)
 
-                    //this.file_binary = base64String;
                 }
-                //reader.readAsText(file_input.files[i]);
+                
                 reader.readAsDataURL(file_input.files[i]);
+
             }
         }
 
         file_input.addEventListener('change', changeFile);
 
-        
         this.$refs.btnSubmit.addEventListener("click", () => {
 
             let dat_title = file_input.files[0].name;
-            // console.log(dat_title)
-            // console.log(base64String);
-
-/*
-            const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-                const byteCharacters = atob(b64Data);
-                const byteArrays = [];
-
-                for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-                    const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-                    const byteNumbers = new Array(slice.length);
-                    for (let i = 0; i < slice.length; i++) {
-                    byteNumbers[i] = slice.charCodeAt(i);
-                    }
-
-                    const byteArray = new Uint8Array(byteNumbers);
-                    byteArrays.push(byteArray);
-                }
-
-                const blob = new Blob(byteArrays, {type: contentType});
-                return blob;
-            }
-
-            const blob = b64toBlob(this.file_binary);
-
-            console.log("Blob:\n" + blob)*/
 
             let url_files = "http://localhost:3000/blobFile/" + dat_title + "/" + base64String
+
+            console.log("URL:\n" + url_files)
 
             fetch(url_files, {
                 method: "POST"

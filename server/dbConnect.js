@@ -191,22 +191,14 @@ const postBlobFile = (req, res) => {
     console.log("NAZIV: " + naziv_dat)
     console.log("URL_FILE: " + file_url)
     console.log("URL_SIZE: " + file_url.length)
-    
-    // const byteCharacters = atob(b64);
-    // const byteNumbers = new Array(byteCharacters.length);
-    // for (let i = 0; i < byteCharacters.length; i++) {
-    // byteNumbers[i] = byteCharacters.charCodeAt(i);
-    // }
-    // const byteArray = new Uint8Array(byteNumbers);
-    // const blob = new Blob([byteArray], {type: 'audio/mp3'});
 
     pool.query(`insert into test_blob (dat_naziv, dat_blob) 
-                values ('${naziv_dat}', decode('${file_url}', 'base64'))`, 
-        (err, results) => {
-            if (err) console.log(err);
-            else{
-                res.json(results.rows)
-            }
+            values ('${naziv_dat}', decode('${file_url}', 'base64'))`, 
+    (err, results) => {
+        if (err) console.log(err);
+        else{
+            res.json(results.rows)
+        }
     })
 }
 

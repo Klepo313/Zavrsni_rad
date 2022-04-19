@@ -9,9 +9,10 @@ const pool = require('./dbConnect');
 const port = 3000;
 
 app.use(cors());
-
-// app.set("port", process.env.PORT || 3000);
-// var port = app.get('port');
+app.use(express.urlencoded({
+    extended: true,
+    limit: '50mb'
+}));
 
 app.get("/mjesta", pool.getMjesta)
 app.get("/mjesta/:id", pool.getMjesto)
