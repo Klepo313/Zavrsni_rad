@@ -176,36 +176,15 @@ export default {
             }) 
         })
 
-        // function dataURLtoFile(filename, dataurl) {
- 
-        //     var arr = dataurl,
-        //         mime = arr[0].match(/:(.*?);/)[1],
-        //         bstr = atob(arr[1]), 
-        //         n = bstr.length, 
-        //         u8arr = new Uint8Array(n);
-             
-        //     while(n--){
-        //         u8arr[n] = bstr.charCodeAt(n);
-        //     }
-         
-        //     return new File([u8arr], filename, {type:mime});
-        // }
-
         let a_upDiv = this.$refs.upDiv
 
         fetch("http://localhost:3000/uploadedData")
         .then(response => {
             response.json().then(parsedJson => {
 
+                console.log("SVE DATOTEKE:", parsedJson)
+
                 for(let i = 0; i < parsedJson.length ; i++){
-                    //let full_base64 = `data:${parsedJson[i].dat_mimetype};base64,${parsedJson[i].dat_base64}`
-
-                    //console.log(full_base64)
-
-                    // const base64Response = fetch(full_base64);
-                    // const blob = base64Response.blob();
-
-                    // console.log("BLOB: " + blob)
 
                     let dat_title = parsedJson[i].dat_naziv
                     let dat_base64 = parsedJson[i].dat_base64
@@ -218,10 +197,6 @@ export default {
                     }
                     const byteArray = new Uint8Array(byteNumbers);
                     const blobURL = URL.createObjectURL(new Blob([byteArray] , {type: `${dat_mimetype}`}));
-
-                    console.log("BLOB_URL: " + blobURL)
-
-                    //<a ref="download_btn" href="" download>Download me</a>
 
                     let el_a = document.createElement("a")
                     el_a.setAttribute("download", dat_title)
@@ -297,7 +272,6 @@ export default {
             })
 
          })
-
 
     }
     
