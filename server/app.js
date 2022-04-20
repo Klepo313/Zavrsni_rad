@@ -16,6 +16,7 @@ app.use(express.urlencoded({
     limit: '50mb'
 }));
 
+//GET
 app.get("/mjesta", pool.getMjesta)
 app.get("/mjesta/:id", pool.getMjesto)
 app.get("/login/:email/:password", pool.loginUser)
@@ -23,9 +24,11 @@ app.get("/userDetails/:id", pool.getUserDetails)
 app.get("/eCourses/:id", pool.getKolegij)
 app.get("/eCourses/:id/:id", pool.getUploads)
 app.get("/eCourses/:id/:id/:id", pool.getUploadDetails)
+app.get("/uploadedData", pool.getUploadedData)
+
+//POST
 app.post("/blobFile", pool.postFile)
-//app.post("/blobFile/:naziv/:url(*)", pool.postBlobFile)
-//app.get("/getBlobFile?naziv=:naziv&url=:url", pool.getBlobFile)
+
 
 app.listen(port, () => {
     var host = "localhost";

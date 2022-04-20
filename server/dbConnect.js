@@ -205,21 +205,34 @@ const postBlobFile = (req, res) => {
 const postFile = (req, res) => {
 
     const data = req.body
-    //var name, base64
+    
     obj = {
         "name": data.name,
+        "mimeType": data.mimeType,
         "base64": data.base64
     }
 
-    pool.query(`insert into test_blob (dat_naziv, dat_blob) 
-            values ('${obj.name}', decode('${obj.base64}', 'base64'))`, 
+    pool.query(`insert into test_blob (dat_naziv, dat_blob, dat_mimeType) 
+            values ('${obj.name}', decode('${obj.base64}', 'base64'), '${obj.mimeType}')`, 
     (err, results) => {
         if (err) console.log(err);
         else{
             res.json("Uspješno spremljeno:\n" 
-            + "DATOTEKA_IME: " + obj.name )
+            + "DATOTEKA_IME: " + obj.name  + ", " + obj.mimeType)
         }
     })
+}
+
+const getUploadedData = (req, res) => {
+
+    pool.query(`select dat_id, dat_naziv, dat_mimeType, encode(dat_blob, 'base64') dat_base64 from test_blob`, 
+    (err, results) => {
+        if (err) console.log(err);
+        else{
+            res.json(results.rows)
+        }
+    })
+
 }
 
 
@@ -234,4 +247,5 @@ module.exports = {
     getUploadDetails,
     postBlobFile,
     postFile,
+    getUploadedData,
 } 

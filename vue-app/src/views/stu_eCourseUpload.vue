@@ -54,6 +54,9 @@
             <button id="btnAddAttch" type="button" @click="openPopup">
                 <img src="../assets/plusIcon.svg" alt="plusIcon"> Add work
             </button>
+            <div ref="upDiv" class="upDiv">
+                <!-- <a ref="download_btn" href="" download>Download me</a> -->
+            </div>
         </div>
 
         <div class="pop-up" ref="popup">
@@ -79,7 +82,6 @@
                             <button class="btnUpDevice">
                                 <img src="../assets/thispcIcon.svg" alt="ThisDevice"> This device
                             </button>
-
                         </div>
                     </div>
                     <button type="button" class="btnBack" @click="closePopup">Close</button>
@@ -159,28 +161,80 @@ export default {
         due.innerHTML = sessionStorage.getItem('dok_due')
         description.innerHTML = sessionStorage.getItem('dok_opis')
 
-        //let file_upload = this.$refs.file_upload
-
-        
-
         fetch(url)
         .then(response => {
             response.json().then(parsedJson => {
 
-                //console.log(parsedJson)
+                for(let i = 0; i < parsedJson.length ; i++){
+                    this.attcCourses[i] = {
+                        id: parsedJson[i].dat_id,
+                        title: parsedJson[i].dat_naziv,
+                        image: "pdf.svg"
+                    }      
+                }
+
+            }) 
+        })
+
+        // function dataURLtoFile(filename, dataurl) {
+ 
+        //     var arr = dataurl,
+        //         mime = arr[0].match(/:(.*?);/)[1],
+        //         bstr = atob(arr[1]), 
+        //         n = bstr.length, 
+        //         u8arr = new Uint8Array(n);
+             
+        //     while(n--){
+        //         u8arr[n] = bstr.charCodeAt(n);
+        //     }
+         
+        //     return new File([u8arr], filename, {type:mime});
+        // }
+
+        let a_upDiv = this.$refs.upDiv
+
+        fetch("http://localhost:3000/uploadedData")
+        .then(response => {
+            response.json().then(parsedJson => {
 
                 for(let i = 0; i < parsedJson.length ; i++){
-                        //console.log(parsedJson[i].dok_id + ", "+ parsedJson[i].vrd_sif + ", " + parsedJson[i].dok_naziv + ',\n ' + parsedJson[i].dok_datdo + " " + parsedJson[i].dok_vrido)
-                  
-                        //console.log(parsedJson[i].dat_naziv)
+                    //let full_base64 = `data:${parsedJson[i].dat_mimetype};base64,${parsedJson[i].dat_base64}`
 
-                        this.attcCourses[i] = {
-                            id: parsedJson[i].dat_id,
-                            title: parsedJson[i].dat_naziv,
-                            image: "pdf.svg"
-                        }
-                     
+                    //console.log(full_base64)
+
+                    // const base64Response = fetch(full_base64);
+                    // const blob = base64Response.blob();
+
+                    // console.log("BLOB: " + blob)
+
+                    let dat_title = parsedJson[i].dat_naziv
+                    let dat_base64 = parsedJson[i].dat_base64
+                    let dat_mimetype = parsedJson[i].dat_mimetype
+
+                    const byteCharacters = atob(dat_base64);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
                     }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blobURL = URL.createObjectURL(new Blob([byteArray] , {type: `${dat_mimetype}`}));
+
+                    console.log("BLOB_URL: " + blobURL)
+
+                    //<a ref="download_btn" href="" download>Download me</a>
+
+                    let el_a = document.createElement("a")
+                    el_a.setAttribute("download", dat_title)
+                    el_a.style = "margin-top: 5px;"
+                    el_a.innerHTML = `${dat_title}`
+                    el_a.href = blobURL
+                    a_upDiv.appendChild(el_a)
+
+                    el_a.addEventListener("click", () => {
+                        el_a.style="margin-top: 5px; color: blue;"
+                    })
+
+                }
 
             }) 
         })
@@ -193,57 +247,56 @@ export default {
         this.$refs.subh.innerHTML = stu_direction + " - " + stu_class
 
 
-        /* hijeroglifi */
+        /*******************************/
+        /* FILE UPLOAD */
+        /*******************************/
 
         var file_input = this.$refs.file_upload
         var base64String
+        let mimeType
 
         function changeFile() {
             for(let i = 0; i < file_input.files.length; i++) {
                 var reader = new FileReader();
                 reader.onloadend = () => {
+
+                    let full_base64 = reader.result
+                    mimeType = full_base64.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/);
+
                     base64String = reader.result
                         .replace('data:', '')
                         .replace(/^.+,/, '');
 
-                    //console.log(base64String)
-                    console.log("SIZE: " + base64String.length)
+                    console.log("SIZE: " + base64String.length 
+                                + "\nMIME_TYPE: " + mimeType)
                 }
                 reader.readAsDataURL(file_input.files[i]);
             }
         } file_input.addEventListener('change', changeFile);
         
-
         this.$refs.btnSubmit.addEventListener("click", () => {
 
-            //let dat_title = file_input.files[0].name;
+            let dat_title = file_input.files[0].name;
+            let data = {
+                "name": dat_title,
+                "mimeType": mimeType,
+                "base64": base64String
+            }
+            fetch("http://localhost:3000/blobFile", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                response.json().then(parsedJson => {
+                   console.log(parsedJson);
+                }) 
+            })
 
-            let no_files = file_input.files.length
-
-            console.log(no_files)
-
-            // let data = {
-            //     "name": dat_title,
-            //     "base64": base64String
-            // }
-
-            // fetch("http://localhost:3000/blobFile", {
-            //     method: "POST",
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(data)
-            // })
-            // .then(response => {
-            //     response.json().then(parsedJson => {
-
-            //         console.log(parsedJson);
-
-            //     }) 
-            // })
-
-        })
+         })
 
 
     }
@@ -292,6 +345,14 @@ button{
     border: none;
     background: none;
     outline: none;
+}
+.upDiv{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.a_hover{
+    opacity: 0.8;
 }
 .upperInfo{
     display: flex;
