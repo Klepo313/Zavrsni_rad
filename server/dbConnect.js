@@ -202,14 +202,24 @@ const postBlobFile = (req, res) => {
     })
 }
 
-const postFile = (req, res, next) => {
+const postFile = (req, res) => {
 
-    const { name, base64 } = req.body
+    const data = req.body
+    //var name, base64
+    obj = {
+        "name": data.name,
+        "base64": data.base64
+    }
 
-    console.log("NAZIV: " + name)
-    console.log("FILE: " + base64)
-
-    res.send({base64})
+    pool.query(`insert into test_blob (dat_naziv, dat_blob) 
+            values ('${obj.name}', decode('${obj.base64}', 'base64'))`, 
+    (err, results) => {
+        if (err) console.log(err);
+        else{
+            res.json("Uspješno spremljeno:\n" 
+            + "DATOTEKA_IME: " + obj.name )
+        }
+    })
 }
 
 

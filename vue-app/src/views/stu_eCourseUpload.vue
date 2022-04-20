@@ -199,58 +199,49 @@ export default {
         var base64String
 
         function changeFile() {
-
             for(let i = 0; i < file_input.files.length; i++) {
-
                 var reader = new FileReader();
-
                 reader.onloadend = () => {
                     base64String = reader.result
-                        // .replace('data:', '')
-                        // .replace(/^.+,/, '');
+                        .replace('data:', '')
+                        .replace(/^.+,/, '');
 
-                    console.log(base64String)
+                    //console.log(base64String)
                     console.log("SIZE: " + base64String.length)
-
                 }
-                
                 reader.readAsDataURL(file_input.files[i]);
-
             }
         } file_input.addEventListener('change', changeFile);
         
 
         this.$refs.btnSubmit.addEventListener("click", () => {
 
+            //let dat_title = file_input.files[0].name;
 
-            const formData = new FormData(formElement)
+            let no_files = file_input.files.length
 
-            let data = {
-                'name': formData.get('name'),
-            }
+            console.log(no_files)
 
-            Object.entries(myFiles).map(item => {
-                const [key, file] = item
-                // append the file to data object
-                data[key] = file
-            })
+            // let data = {
+            //     "name": dat_title,
+            //     "base64": base64String
+            // }
 
-            let dat_title = file_input.files[0].name;
+            // fetch("http://localhost:3000/blobFile", {
+            //     method: "POST",
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(data)
+            // })
+            // .then(response => {
+            //     response.json().then(parsedJson => {
 
-            let url_files = "http://localhost:3000/blobFile/"
+            //         console.log(parsedJson);
 
-            fetch(url_files, {
-                method: "POST",
-                body: JSON.stringify(data),
-                'data | body': {base64String}
-            })
-            .then(response => {
-                response.json().then(parsedJson => {
-
-                    console.log(parsedJson);
-
-                }) 
-            })
+            //     }) 
+            // })
 
         })
 
