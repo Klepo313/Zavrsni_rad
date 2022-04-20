@@ -202,6 +202,17 @@ const postBlobFile = (req, res) => {
     })
 }
 
+const postFile = (req, res, next) => {
+
+    const { name, base64 } = req.body
+
+    console.log("NAZIV: " + name)
+    console.log("FILE: " + base64)
+
+    res.send({base64})
+}
+
+
 module.exports = {
     pool,
     getMjesta,
@@ -212,5 +223,5 @@ module.exports = {
     getUploads,
     getUploadDetails,
     postBlobFile,
-    //getBlobFile,
+    postFile,
 } 

@@ -199,14 +199,15 @@ export default {
         var base64String
 
         function changeFile() {
+
             for(let i = 0; i < file_input.files.length; i++) {
 
                 var reader = new FileReader();
 
                 reader.onloadend = () => {
                     base64String = reader.result
-                        .replace('data:', '')
-                        .replace(/^.+,/, '');
+                        // .replace('data:', '')
+                        // .replace(/^.+,/, '');
 
                     console.log(base64String)
                     console.log("SIZE: " + base64String.length)
@@ -216,20 +217,32 @@ export default {
                 reader.readAsDataURL(file_input.files[i]);
 
             }
-        }
-
-        file_input.addEventListener('change', changeFile);
+        } file_input.addEventListener('change', changeFile);
+        
 
         this.$refs.btnSubmit.addEventListener("click", () => {
 
+
+            const formData = new FormData(formElement)
+
+            let data = {
+                'name': formData.get('name'),
+            }
+
+            Object.entries(myFiles).map(item => {
+                const [key, file] = item
+                // append the file to data object
+                data[key] = file
+            })
+
             let dat_title = file_input.files[0].name;
 
-            let url_files = "http://localhost:3000/blobFile/" + dat_title + "/" + base64String
-
-            console.log("URL:\n" + url_files)
+            let url_files = "http://localhost:3000/blobFile/"
 
             fetch(url_files, {
-                method: "POST"
+                method: "POST",
+                body: JSON.stringify(data),
+                'data | body': {base64String}
             })
             .then(response => {
                 response.json().then(parsedJson => {
