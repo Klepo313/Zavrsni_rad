@@ -109,9 +109,6 @@ export default {
                 inpClass.value = parsedJson[0].odj_naziv
                 inpYear.value = parsedJson[0].skg_sif
 
-                sessionStorage.setItem('stu_direction', inpDirections.value)
-                sessionStorage.setItem('stu_class', inpClass.value)
-
             })
         })
         .catch(error => console.log(error))

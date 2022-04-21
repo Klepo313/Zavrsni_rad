@@ -30,6 +30,7 @@
                         v-for="course in attcCourses"
                         :key="course.id"
                         :header="course.title"
+                        :blob_url="course.blob_url"
                         :image="course.image"
                     />
                 </div>
@@ -148,7 +149,10 @@ export default {
         }
     },
     mounted(){
+
         let ses_uloga_id = sessionStorage.getItem('id_uloga')
+
+        /*
         let eCourse_id = sessionStorage.getItem('eCourse_id')
         let upload_id = sessionStorage.getItem('upload_id')
         let url = "http://localhost:3000/eCourses/"+ ses_uloga_id + "/" + eCourse_id + "/" + upload_id
@@ -174,9 +178,19 @@ export default {
                 }
 
             }) 
-        })
+        })*/
 
-        let a_upDiv = this.$refs.upDiv
+        // let a_upDiv = this.$refs.upDiv
+
+        fetch("http://localhost:3000/userDetails/" + ses_uloga_id)
+        .then(response => {
+            response.json().then(parsedJson => {
+                let eCourse_title = sessionStorage.getItem('eCourse_title')
+                this.$refs.hd1.innerHTML = eCourse_title
+                this.$refs.subh.innerHTML = parsedJson[0].npr_naziv 
+                + " - " + parsedJson[0].odj_naziv
+            })
+        })
 
         fetch("http://localhost:3000/uploadedData")
         .then(response => {
@@ -186,9 +200,12 @@ export default {
 
                 for(let i = 0; i < parsedJson.length ; i++){
 
+                    let dat_id = parsedJson[i].dat_id
                     let dat_title = parsedJson[i].dat_naziv
                     let dat_base64 = parsedJson[i].dat_base64
                     let dat_mimetype = parsedJson[i].dat_mimetype
+                    let fileExt = dat_title.split('.').pop();
+                    console.log(fileExt)
 
                     const byteCharacters = atob(dat_base64);
                     const byteNumbers = new Array(byteCharacters.length);
@@ -198,29 +215,53 @@ export default {
                     const byteArray = new Uint8Array(byteNumbers);
                     const blobURL = URL.createObjectURL(new Blob([byteArray] , {type: `${dat_mimetype}`}));
 
-                    let el_a = document.createElement("a")
-                    el_a.setAttribute("download", dat_title)
-                    el_a.style = "margin-top: 5px;"
-                    el_a.innerHTML = `${dat_title}`
-                    el_a.href = blobURL
-                    a_upDiv.appendChild(el_a)
+                    let image_ext_icon
 
-                    el_a.addEventListener("click", () => {
-                        el_a.style="margin-top: 5px; color: blue;"
-                    })
+                    switch(fileExt){
+                        default:
+                            image_ext_icon = "undefined.svg"
+                            break;
+                        case "docx":
+                            image_ext_icon = "docx.svg";
+                            break;
+                        case "html":
+                            image_ext_icon = "html.svg";
+                            break;
+                        case "png"||"jpg"||"jpeg"||"gif"||"bmp":
+                            image_ext_icon = "img.svg";
+                            break;
+                        case "pdf":
+                            image_ext_icon = "pdf.svg";
+                            break;
+                        case "pptx":
+                            image_ext_icon = "pptx.svg";
+                            break;
+                        case "sql":
+                            image_ext_icon = "sql.svg";
+                            break;
+                        case "zip":
+                            image_ext_icon = "zip.svg"
+                            break;
+                        case "txt":
+                            image_ext_icon = "txt.svg"
+                            break;
+                        case "exe":
+                            image_ext_icon = "exe.svg"
+                            break;
+                    }
 
+                    console.log("IMAGE EXT ICON: " + image_ext_icon)
+                
+                    this.attcCourses[i] = {
+                        id: dat_id,
+                        title: dat_title,
+                        blob_url: blobURL,
+                        image: image_ext_icon
+                    }     
                 }
 
             }) 
         })
-
-        let eCourse_title = sessionStorage.getItem('eCourse_title')
-        let stu_direction = sessionStorage.getItem('stu_direction')
-        let stu_class = sessionStorage.getItem('stu_class')
-        
-        this.$refs.hd1.innerHTML = eCourse_title
-        this.$refs.subh.innerHTML = stu_direction + " - " + stu_class
-
 
         /*******************************/
         /* FILE UPLOAD */

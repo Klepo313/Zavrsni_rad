@@ -1,13 +1,13 @@
 <template>
     <main>
         <img :src="require(`../assets/extIcons/${image}`)" alt="ext">
-        <h1> {{ header }} </h1>
+        <a :href="blob_url" :download="header"> {{ header }} </a>
     </main>
 </template>
 
 <script>
 export default {
-  props: ['image', 'header']
+  props: ['image', 'header', 'blob_url']
 }
 </script>
 
@@ -22,13 +22,14 @@ export default {
         opacity: 0.8;
         cursor: pointer;
     }
-    h1{
+    a{
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
         line-height: 30px;
         text-transform: uppercase;
         margin-left: 12px;
+        text-decoration: none;
     }
     
 </style>
