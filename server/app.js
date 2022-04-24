@@ -24,7 +24,8 @@ app.get("/userDetails/:id", pool.getUserDetails)
 app.get("/eCourses/:id", pool.getKolegij)
 app.get("/eCourses/:id/:id", pool.getUploads)
 app.get("/eCourses/:id/:id/:id", pool.getUploadDetails)
-app.get("/uploadedData", pool.getUploadedData)
+app.get("/attchedData/:id", pool.getAttachedData)
+app.get("/myWork/:id", pool.getUploadedWork)
 
 //POST
 app.post("/blobFile", pool.postFile)

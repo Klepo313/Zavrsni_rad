@@ -162,13 +162,15 @@ const postFile = (req, res) => {
     const data = req.body
     
     obj = {
+        "upload_id": data.upload_id,
         "name": data.name,
+        "ext": data.ext,
         "mimeType": data.mimeType,
         "base64": data.base64
     }
 
-    pool.query(`insert into test_blob (dat_naziv, dat_blob, dat_mimeType) 
-            values ('${obj.name}', decode('${obj.base64}', 'base64'), '${obj.mimeType}')`, 
+    pool.query(`insert into datoteke (dat_dok_id, dat_naziv, dat_ext, dat_blob, dat_mimetype, dat_vrsta)
+    values(${obj.upload_id}, ${obj.dat_title}, ${obj.ext}, decode('${obj.base64}', 'base64'), ${obj.mimeType}, 'U')`, 
     (err, results) => {
         if (err) console.log(err);
         else{
@@ -176,11 +178,27 @@ const postFile = (req, res) => {
             + "DATOTEKA_IME: " + obj.name  + ", " + obj.mimeType)
         }
     })
+
+    // pool.query(`insert into test_blob (dat_naziv, dat_blob, dat_mimeType) 
+    //         values ('${obj.name}', decode('${obj.base64}', 'base64'), '${obj.mimeType}')`, 
+    // (err, results) => {
+    //     if (err) console.log(err);
+    //     else{
+    //         res.json("Uspješno spremljeno:\n" 
+    //         + "DATOTEKA_IME: " + obj.name  + ", " + obj.mimeType)
+    //     }
+    // })
 }
 
-const getUploadedData = (req, res) => {
+const getAttachedData = (req, res) => {
 
-    pool.query(`select dat_id, dat_naziv, dat_mimeType, encode(dat_blob, 'base64') dat_base64 from test_blob`, 
+    const upload_id = parseInt(req.params.id)
+
+    pool.query(`select dat_id, dat_naziv, encode(dat_blob, 'base64') 
+                    dat_base64, dat_mimetype, dat_vrsta 
+                from datoteke d2
+                where dat_dok_id = ${upload_id}
+                and dat_vrsta = 'P'`, 
     (err, results) => {
         if (err) console.log(err);
         else{
@@ -188,6 +206,19 @@ const getUploadedData = (req, res) => {
         }
     })
 
+}
+
+const getUploadedWork = (req, res) => {
+    const kor_id = parseInt(req.params.id)
+
+    pool.query(`select dat_id, dat_naziv, dat_mimetype, encode(dat_blob, 'base64') dat_base64 from test_blob tb 
+                where dok_osa_id = ${kor_id} `, 
+    (err, results) => {
+        if (err) console.log(err);
+        else{
+            res.json(results.rows)
+        }
+    })
 }
 
 
@@ -201,5 +232,6 @@ module.exports = {
     getUploads,
     getUploadDetails,
     postFile,
-    getUploadedData,
+    getAttachedData,
+    getUploadedWork
 } 

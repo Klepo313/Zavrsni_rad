@@ -1,13 +1,17 @@
 <template>
     <main>
-        <img :src="require(`../assets/extIcons/${image}`)" alt="ext">
+        <img :src="require(`../assets/extIcons/${image}`)" alt="ext" ref="img">
         <a :href="blob_url" :download="header"> {{ header }} </a>
     </main>
 </template>
 
 <script>
 export default {
-  props: ['image', 'header', 'blob_url']
+  props: ['image', 'header', 'blob_url'],
+  mounted(){
+      //this.image = '../assets/extIcons/pdf.svg'
+      //console.log("SRC: " +  this.$refs.img.src);
+  }
 }
 </script>
 

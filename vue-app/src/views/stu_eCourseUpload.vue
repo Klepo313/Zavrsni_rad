@@ -48,7 +48,9 @@
                     <UploadedCourse id="uploadedcourse"
                         v-for="updc in upldCourses"
                         :key="updc.id"
-                        :header="updc.header"
+                        :title="updc.title"
+                        :blob_url="updc.blob_url"
+                        :image="updc.image"
                     />
                 </div>
             </div>
@@ -102,8 +104,13 @@
                             <h2 class="h2PopUp">Attached files</h2>
                         </div>
                         <div class="attachedFiles">
-                            <UploadedCourse class="upldcourse" />
-                            <UploadedCourse class="upldcourse" />
+                            <UploadedCourse id="uploadedcourse"
+                                v-for="updc in upldCourses"
+                                :key="updc.id"
+                                :title="updc.title"
+                                :blob_url="updc.blob_url"
+                                :image="updc.image"
+                            />
                         </div>
                         <button id="btnSubmit" ref="btnSubmit">
                             <img class="uploadIcon" src="../assets/uploadIcon.svg" alt="uploadIcon">
@@ -130,14 +137,18 @@ export default {
         AttachedFile, 
         UploadedCourse
     },
+    // computed: {
+    //     extIcon() {
+    //         return {
+    //             ...this.upldCourses,
+    //             icon: this.upldCourses.image && require(`../assets/extIcons/${this.upldCourses.image }`)
+    //         }
+    //     }
+    // },
     data(){
         return {
             attcCourses: {},
-            upldCourses: [
-                { id: 1, image: "pdf.svg", header: '4E_Klepo_Antonio_LV1' },
-                { id: 2, image: "docx.svg", header: '4E_Klepo_Antonio_LV1' }
-            ],
-            file_binary: ""
+            upldCourses: {}
         }
     },
     methods: {
@@ -151,12 +162,9 @@ export default {
     mounted(){
 
         let ses_uloga_id = sessionStorage.getItem('id_uloga')
-
-        /*
-        let eCourse_id = sessionStorage.getItem('eCourse_id')
+        let ses_id = sessionStorage.getItem('id_osobe')
         let upload_id = sessionStorage.getItem('upload_id')
-        let url = "http://localhost:3000/eCourses/"+ ses_uloga_id + "/" + eCourse_id + "/" + upload_id
-
+                
         const header = this.$refs.header
         const due = this.$refs.due
         const description = this.$refs.description
@@ -165,22 +173,45 @@ export default {
         due.innerHTML = sessionStorage.getItem('dok_due')
         description.innerHTML = sessionStorage.getItem('dok_opis')
 
-        fetch(url)
-        .then(response => {
-            response.json().then(parsedJson => {
+        function showExtIcons(extension) {
 
-                for(let i = 0; i < parsedJson.length ; i++){
-                    this.attcCourses[i] = {
-                        id: parsedJson[i].dat_id,
-                        title: parsedJson[i].dat_naziv,
-                        image: "pdf.svg"
-                    }      
-                }
+            let image_ext_icon
 
-            }) 
-        })*/
+            switch(extension){
+                default:
+                    image_ext_icon = "undefined.svg"
+                    break;
+                case "docx":
+                    image_ext_icon = "docx.svg";
+                    break;
+                case "html":
+                    image_ext_icon = "html.svg";
+                    break;
+                case "png"||"jpg"||"jpeg"||"gif"||"bmp":
+                    image_ext_icon = "img.svg";
+                    break;
+                case "pdf":
+                    image_ext_icon = "pdf.svg";
+                    break;
+                case "pptx":
+                    image_ext_icon = "pptx.svg";
+                    break;
+                case "sql":
+                    image_ext_icon = "sql.svg";
+                    break;
+                case "zip":
+                    image_ext_icon = "zip.svg"
+                    break;
+                case "txt":
+                    image_ext_icon = "txt.svg"
+                    break;
+                case "exe":
+                    image_ext_icon = "exe.svg"
+                    break;
+            }
 
-        // let a_upDiv = this.$refs.upDiv
+            return image_ext_icon
+        }
 
         fetch("http://localhost:3000/userDetails/" + ses_uloga_id)
         .then(response => {
@@ -192,7 +223,7 @@ export default {
             })
         })
 
-        fetch("http://localhost:3000/uploadedData")
+        fetch("http://localhost:3000/attchedData/" + upload_id)
         .then(response => {
             response.json().then(parsedJson => {
 
@@ -205,52 +236,20 @@ export default {
                     let dat_base64 = parsedJson[i].dat_base64
                     let dat_mimetype = parsedJson[i].dat_mimetype
                     let fileExt = dat_title.split('.').pop();
-                    console.log(fileExt)
+                    
+                    //console.log(fileExt)
 
-                    const byteCharacters = atob(dat_base64);
-                    const byteNumbers = new Array(byteCharacters.length);
+                    let byteCharacters = atob(dat_base64);
+                    let byteNumbers = new Array(byteCharacters.length);
                     for (let i = 0; i < byteCharacters.length; i++) {
                         byteNumbers[i] = byteCharacters.charCodeAt(i);
                     }
-                    const byteArray = new Uint8Array(byteNumbers);
-                    const blobURL = URL.createObjectURL(new Blob([byteArray] , {type: `${dat_mimetype}`}));
+                    let byteArray = new Uint8Array(byteNumbers);
+                    let blobURL = URL.createObjectURL(new Blob([byteArray] , {type: `${dat_mimetype}`}));
 
-                    let image_ext_icon
-
-                    switch(fileExt){
-                        default:
-                            image_ext_icon = "undefined.svg"
-                            break;
-                        case "docx":
-                            image_ext_icon = "docx.svg";
-                            break;
-                        case "html":
-                            image_ext_icon = "html.svg";
-                            break;
-                        case "png"||"jpg"||"jpeg"||"gif"||"bmp":
-                            image_ext_icon = "img.svg";
-                            break;
-                        case "pdf":
-                            image_ext_icon = "pdf.svg";
-                            break;
-                        case "pptx":
-                            image_ext_icon = "pptx.svg";
-                            break;
-                        case "sql":
-                            image_ext_icon = "sql.svg";
-                            break;
-                        case "zip":
-                            image_ext_icon = "zip.svg"
-                            break;
-                        case "txt":
-                            image_ext_icon = "txt.svg"
-                            break;
-                        case "exe":
-                            image_ext_icon = "exe.svg"
-                            break;
-                    }
-
-                    console.log("IMAGE EXT ICON: " + image_ext_icon)
+                    let image_ext_icon = showExtIcons(fileExt)
+                    
+                    //console.log("IMAGE EXT ICON: " + image_ext_icon)
                 
                     this.attcCourses[i] = {
                         id: dat_id,
@@ -261,6 +260,41 @@ export default {
                 }
 
             }) 
+        })
+
+        fetch("http://localhost:3000/myWork/" + ses_id)
+        .then(response => {
+            response.json().then(parsedJson => {
+                console.log("MY WORK:", parsedJson)
+
+                for(let i = 0; i < parsedJson.length ; i++){
+
+                    let dat_id = parsedJson[i].dat_id
+                    let dat_title = parsedJson[i].dat_naziv
+                    let dat_base64 = parsedJson[i].dat_base64
+                    let dat_mimetype = parsedJson[i].dat_mimetype
+                    let fileExt = dat_title.split('.').pop();
+
+                    let byteCharacters = atob(dat_base64);
+                    let byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    let byteArray = new Uint8Array(byteNumbers);
+                    let blobURL = URL.createObjectURL(new Blob([byteArray] , {type: `${dat_mimetype}`}));
+
+                    //let image_ext_icon = showExtIcons(fileExt)
+                    
+                    //console.log("IMAGE EXT ICON: " + image_ext_icon)
+                
+                    this.upldCourses[i] = {
+                        id: dat_id,
+                        title: dat_title,
+                        blob_url: blobURL,
+                        image: fileExt
+                    }     
+                }
+            })
         })
 
         /*******************************/
@@ -293,8 +327,13 @@ export default {
         this.$refs.btnSubmit.addEventListener("click", () => {
 
             let dat_title = file_input.files[0].name;
+            let fileExt = dat_title.split('.').pop();
+            console.log(fileExt)
+
             let data = {
+                "upload_id": upload_id,
                 "name": dat_title,
+                "ext": fileExt,
                 "mimeType": mimeType,
                 "base64": base64String
             }
