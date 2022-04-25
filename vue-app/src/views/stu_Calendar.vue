@@ -31,6 +31,15 @@ export default{
 
   methods: {
 
+    // https://www.google.com/search?q=native+js+calendar&rlz=1C1GCEA_enHR969HR969&oq=native+js+calenda&aqs=chrome.1.69i57j33i10i160l3.3687j0j7&sourceid=chrome&ie=UTF-8
+    // https://www.cssscript.com/tag/calendar/
+    // https://flatlogic.com/blog/top-javascript-calendar-plugins/ 
+    // https://fullcalendar.io/demos
+    // https://morioh.com/p/c01b654761a1
+    // https://madewithvuejs.com/calendars
+
+
+
     renderCalendar: function(){ 
 
       date.setDate(1);
