@@ -41,12 +41,6 @@
 
           <div class="gLine"></div>
 
-          
-
-          <div class="quickCourse">
-              <img src="../assets/image4.png" alt="">
-              <p class="qcName">Digitalna logika</p>
-          </div>
 
         </nav>
 
