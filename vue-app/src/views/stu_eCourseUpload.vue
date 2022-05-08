@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        <div class="upload-pop">
+        <div class="upload-pop" ref="upload_pop">
             <span>Upload successful</span>
         </div>
 
@@ -359,6 +359,13 @@ export default {
                 "base64": base64String
             }
 
+            let upload_pop = this.$refs.upload_pop
+            function timeout(){
+                setTimeout(()=>{
+                    upload_pop.style.display = "none"
+                }, 2000)
+            }
+
             fetch("http://localhost:3000/blobFile", {
                 method: "POST",
                 headers: {
@@ -370,9 +377,15 @@ export default {
             .then(response => {
                 response.json().then(parsedJson => {
                    console.log(parsedJson);
-                //    if(parsedJson.status === "successful"){
-
-                //    }
+                    if(parsedJson.status === "successful"){
+                        upload_pop.style.display = "flex"
+                        upload_pop.style.backgroundColor = "green"
+                        timeout();
+                    } else {
+                        upload_pop.style.display = "flex"
+                        upload_pop.style.backgroundColor = "red"
+                        timeout();
+                    }
                 }) 
             })
 
@@ -387,6 +400,26 @@ export default {
 </script>
 
 <style scoped>
+
+@keyframes slidein {
+  from {
+    bottom: -100px;
+  }
+
+  to {
+    bottom: 30px;
+  }
+}
+
+@keyframes slideout {
+  from {
+    bottom: 30px;
+  }
+
+  to {
+    bottom: -100px;
+  }
+}
 
 #app{
     width: 50vw;
@@ -435,16 +468,19 @@ button{
 
     width: 200px;
     height: 50px;
-    
+
     border-radius: 10px;
     background-color: green;
     color: white;
     font-size: 16px;
     cursor: default;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+
+    animation-duration: 2s;
+    animation-name: slidein;
 }
 .upDiv{
     margin-top: 20px;
