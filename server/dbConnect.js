@@ -163,19 +163,20 @@ const postFile = (req, res) => {
     
     obj = {
         "upload_id": data.upload_id,
+        "osa_id": data.osa_id,
         "name": data.name,
+        "dat_file": data.dat_file,
         "ext": data.ext,
         "mimeType": data.mimeType,
         "base64": data.base64
     }
 
-    pool.query(`insert into datoteke (dat_dok_id, dat_naziv, dat_ext, dat_blob, dat_mimetype, dat_vrsta)
-    values(${obj.upload_id}, ${obj.dat_title}, ${obj.ext}, decode('${obj.base64}', 'base64'), ${obj.mimeType}, 'U')`, 
+    pool.query(`insert into datoteke (dat_dok_id, dat_naziv, dat_file, dat_ext, dat_blob, dat_mimetype, dat_vrsta, dat_kor_id)
+    values(${obj.upload_id}, '${obj.name}', '${obj.dat_file}', '${obj.ext}', decode('${obj.base64}', 'base64'), '${obj.mimeType}', 'U', ${obj.osa_id})`, 
     (err, results) => {
         if (err) console.log(err);
         else{
-            res.json("Uspješno spremljeno:\n" 
-            + "DATOTEKA_IME: " + obj.name  + ", " + obj.mimeType)
+            res.status(200).json({"status":"successful"});
         }
     })
 
@@ -198,7 +199,8 @@ const getAttachedData = (req, res) => {
                     dat_base64, dat_mimetype, dat_vrsta 
                 from datoteke d2
                 where dat_dok_id = ${upload_id}
-                and dat_vrsta = 'P'`, 
+                and dat_vrsta = 'P'
+                and dat_kor_id IS NULL`, 
     (err, results) => {
         if (err) console.log(err);
         else{
@@ -211,8 +213,11 @@ const getAttachedData = (req, res) => {
 const getUploadedWork = (req, res) => {
     const kor_id = parseInt(req.params.id)
 
-    pool.query(`select dat_id, dat_naziv, dat_mimetype, encode(dat_blob, 'base64') dat_base64 from test_blob tb 
-                where dok_osa_id = ${kor_id} `, 
+    pool.query(`select dat_id, dat_naziv, encode(dat_blob, 'base64') 
+                    dat_base64, dat_mimetype, dat_vrsta 
+                from datoteke d2
+                where dat_dok_id = 2
+                and dat_kor_id = ${kor_id} `, 
     (err, results) => {
         if (err) console.log(err);
         else{

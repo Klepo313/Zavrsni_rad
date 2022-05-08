@@ -122,6 +122,10 @@
             </div>
         </div>
 
+        <div class="upload-pop">
+            <span>Upload successful</span>
+        </div>
+
     </div>
 </template>
 
@@ -212,6 +216,10 @@ export default {
 
             return image_ext_icon
         }
+   
+        function removeExtension(filename) {
+            return filename.substring(0, filename.lastIndexOf('.')) || filename;
+        }
 
         fetch("http://localhost:3000/userDetails/" + ses_uloga_id)
         .then(response => {
@@ -222,6 +230,10 @@ export default {
                 + " - " + parsedJson[0].odj_naziv
             })
         })
+
+        /*******************************/
+        /* ATTACHED FILES */
+        /*******************************/
 
         fetch("http://localhost:3000/attchedData/" + upload_id)
         .then(response => {
@@ -261,6 +273,10 @@ export default {
 
             }) 
         })
+
+        /*******************************/
+        /* MY UPLOADS */
+        /*******************************/
 
         fetch("http://localhost:3000/myWork/" + ses_id)
         .then(response => {
@@ -330,13 +346,19 @@ export default {
             let fileExt = dat_title.split('.').pop();
             console.log(fileExt)
 
+            let dat_fileName = removeExtension(dat_title)
+            console.log(dat_fileName);
+
             let data = {
                 "upload_id": upload_id,
+                "osa_id": ses_id,
                 "name": dat_title,
+                "dat_file": dat_fileName,
                 "ext": fileExt,
                 "mimeType": mimeType,
                 "base64": base64String
             }
+
             fetch("http://localhost:3000/blobFile", {
                 method: "POST",
                 headers: {
@@ -348,10 +370,15 @@ export default {
             .then(response => {
                 response.json().then(parsedJson => {
                    console.log(parsedJson);
+                //    if(parsedJson.status === "successful"){
+
+                //    }
                 }) 
             })
 
-         })
+
+
+        })
 
     }
     
@@ -399,6 +426,25 @@ button{
     border: none;
     background: none;
     outline: none;
+}
+.upload-pop{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    right: 50%;
+
+    width: 200px;
+    height: 50px;
+    
+    border-radius: 10px;
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    cursor: default;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .upDiv{
     margin-top: 20px;
