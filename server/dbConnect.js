@@ -212,16 +212,35 @@ const getAttachedData = (req, res) => {
 
 const getUploadedWork = (req, res) => {
     const kor_id = parseInt(req.params.id)
+    const upload_id = parseInt(req.params.upload_id)
 
     pool.query(`select dat_id, dat_naziv, encode(dat_blob, 'base64') 
                     dat_base64, dat_mimetype, dat_vrsta 
                 from datoteke d2
-                where dat_dok_id = 2
-                and dat_kor_id = ${kor_id} `, 
+                where dat_dok_id = ${upload_id}
+                and dat_kor_id = ${kor_id}
+                and dat_visibility = true `, 
     (err, results) => {
         if (err) console.log(err);
         else{
             res.json(results.rows)
+        }
+    })
+}
+
+const deleteFile = (req, res) => {
+    const data = req.body
+    const file_id = data.file_id
+
+    console.log("File_id: " + file_id)
+
+    pool.query(`update datoteke 
+                set dat_visibility = false 
+                where dat_id = ${file_id}`, 
+    (err, results) => {
+        if (err) console.log(err);
+        else{
+            results.json("successful")
         }
     })
 }
@@ -238,5 +257,6 @@ module.exports = {
     getUploadDetails,
     postFile,
     getAttachedData,
-    getUploadedWork
+    getUploadedWork,
+    deleteFile
 } 

@@ -1,11 +1,11 @@
 <template>
-    <main>
+    <main ref="main">
         <div>
             <!-- <img :src="extIcon" alt="ext " ref="img"> -->
             <span ref="img"> {{ image }} </span>
             <a :href="blob_url" :download="title"> {{ title }} </a>
         </div>
-        <button id="btnRemove">
+        <button id="btnRemove" ref="btnRemove">
             <img src="@/assets/removeIcon.svg" alt="removeX">
         </button>
     </main>
@@ -17,50 +17,56 @@ export default {
   mounted(){
 
     this.$refs.img.style = "color: white; font-weight: 800;"
-    // function showExtIcons(extension) {
 
-    //         switch(extension){
-    //             default:
-    //                 extension.style = "color: white; font-weight: 800;"
-    //                 break;
-    //             case "docx":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "html":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "png"||"jpg"||"jpeg"||"gif"||"bmp":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "pdf":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "pptx":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "sql":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "zip":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "txt":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //             case "exe":
-    //                 extension.style = "color: #ff0000; font-weight: 800;"
-    //                 break;
-    //         }
+    let file_id = this.$.vnode.key
+    let btnRemove = this.$refs.btnRemove;
+    btnRemove.addEventListener("click", () => {
 
-    //         return extension
-    // }
+        let data = {
+            "file_id": file_id,
+            "file_title": this.title
+        }
 
-    // showExtIcons(this.$refs.img)
+        console.log(data);
+
+        fetch("http://localhost:3000/deleteFile", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            response.json().then(parsedJson => {
+                console.log(parsedJson);
+
+                    var answer = window.confirm("Želiš li izbrisati dokument?");
+                    if (answer) {
+                        if(parsedJson === "successful"){
+                            let file = this.$refs.main
+                            file.style.display = "none"
+                        }
+                    }
+                    else {
+                        // Ostavi kako je
+                    }
+
+            }) 
+        })
+    })
+  
+    
+  
   }
 }
 </script>
 
 <style scoped>
+    *{
+        transition: all 0.2s ease-in-out;
+        scroll-behavior: smooth;
+    }
     main{
         display: flex;
         align-items: center;

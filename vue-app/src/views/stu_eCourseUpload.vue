@@ -278,7 +278,7 @@ export default {
         /* MY UPLOADS */
         /*******************************/
 
-        fetch("http://localhost:3000/myWork/" + ses_id)
+        fetch("http://localhost:3000/myWork/" + ses_id + '/' + upload_id)
         .then(response => {
             response.json().then(parsedJson => {
                 console.log("MY WORK:", parsedJson)
@@ -418,6 +418,15 @@ export default {
 
   to {
     bottom: -100px;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 

@@ -25,12 +25,12 @@ app.get("/eCourses/:id", pool.getKolegij)
 app.get("/eCourses/:id/:id", pool.getUploads)
 app.get("/eCourses/:id/:id/:id", pool.getUploadDetails)
 app.get("/attchedData/:id", pool.getAttachedData)
-app.get("/myWork/:id", pool.getUploadedWork)
+app.get("/myWork/:id/:upload_id", pool.getUploadedWork)
 
 //POST
 app.post("/blobFile", pool.postFile)
-
-
+app.post("/deleteFile", pool.deleteFile)
+///:file_id
 app.listen(port, () => {
     var host = "localhost";
     console.log(`Server listening on port http://%s:%s`, host, port);
