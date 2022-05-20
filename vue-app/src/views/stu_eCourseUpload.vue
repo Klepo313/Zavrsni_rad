@@ -26,7 +26,7 @@
             <div>
                 <span class="sTitle">Assignment files</span>
                 <div class="upload-container">
-                    <AttachedFile 
+                    <AttachedFile class="slideInLeft"
                         v-for="course in attcCourses"
                         :key="course.id"
                         :header="course.title"
@@ -45,7 +45,7 @@
                 </div>
                 <!--    :image="updc.image"  -->
                 <div class="component">
-                    <UploadedCourse id="uploadedcourse"
+                    <UploadedCourse id="uploadedcourse" class="slideInLeft"
                         v-for="updc in upldCourses"
                         :key="updc.id"
                         :title="updc.title"
@@ -103,8 +103,8 @@
                         <div class="mainTitle">
                             <h2 class="h2PopUp">Attached files</h2>
                         </div>
-                        <div class="attachedFiles">
-                            <UploadedCourse id="uploadedcourse"
+                        <div class="attachedFiles slideInLeft">
+                            <UploadedCourse id="uploadedcourse" class="slideInLeft"
                                 v-for="updc in upldCourses"
                                 :key="updc.id"
                                 :title="updc.title"
@@ -418,16 +418,27 @@ export default {
 
   to {
     bottom: -100px;
-  }
+  }  
 }
 
 @keyframes slideInLeft {
-  0% {
+  /* 0% {
     transform: translateX(-100%);
   }
   100% {
     transform: translateX(0);
-  }
+  } */
+    0% { 
+        opacity: 0;
+        transform: translateY(-60%);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0);
+    } 
+}
+.slideInLeft{
+  animation: 1s ease-out 0s 1 slideInLeft;
 }
 
 #app{

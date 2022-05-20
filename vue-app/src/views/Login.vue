@@ -66,8 +66,12 @@ export default {
 
                         if(parsedJson.osa_ucenik!=null){
                             osa_uloga = "ucenik"
+                            //Redirect
+                            window.location.href = 'http://localhost:8080'
                         } else{
                             osa_uloga = "profesor"
+                            //Redirect
+                            window.location.href = 'http://localhost:8080/profesor'
                         }
 
                         sessionStorage.setItem('email', osa_email); 
@@ -76,8 +80,7 @@ export default {
                         sessionStorage.setItem('id_uloga', osa_uloga_id)
                         
 
-                        //Redirect
-                        window.location.href = 'http://localhost:8080'
+                        
 
 
                     } else{

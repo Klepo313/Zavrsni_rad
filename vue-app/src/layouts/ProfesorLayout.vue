@@ -10,29 +10,29 @@
       <div class="mainScreen">
         <nav>
 
-          <h2 @click="this.$router.push('/')" style="cursor: pointer;" >upCloud.</h2>
+          <h2 @click="this.$router.push('/prf_dashboard')" style="cursor: pointer;" >upCloud.</h2>
           
           <ul>
               
               <li>
-                <router-link to="/" inactive-class="inactive">
+                <router-link to="/prf_dashboard" inactive-class="inactive">
                   <img class="liImg" src="../assets/dashboardICon.svg" alt=""> Dashboard
                 </router-link>
               </li>
               <li>
-                <router-link to="/eCourses" inactive-class="inactive">
+                <router-link to="/prf_eCourses" inactive-class="inactive">
                   <img class="liImg" src="../assets/myEcourses.svg" alt="">    My eCourses
                 </router-link>
               </li>
             
               <li>
-                <router-link to="/calendar" inactive-class="inactive">
-                  <img class="liImg" src="../assets/calendarIcon.svg" alt="">  Calendar
+                <router-link to="/prf_calendar" inactive-class="inactive">
+                  <img class="liImg" src="../assets/calendarIcon.svg" alt="">  My Students
                 </router-link>
               </li>
             
               <li>
-                <router-link to="/profile" inactive-class="inactive">
+                <router-link to="/prf_profile" inactive-class="inactive">
                   <img class="liImg" src="../assets/myAccIcon.svg" alt="">     Profile
                 </router-link>
               </li>
@@ -57,10 +57,10 @@
 <script>
 
 export default {
-  methods: {
-      hasHistory () { return window.history.length > 2 }
-  },
-  created() {
+    methods: {
+        hasHistory () { return window.history.length > 2 }
+    },
+    created() {
 
     //Session storage
     let ses_email = sessionStorage.getItem('email')
@@ -71,7 +71,7 @@ export default {
 
     if(ses_email!=null || ses_id!=null || ses_uloga!=null || ses_uloga_id!=null){
       //Ostani na dashboardu
-      console.log("Dopušten pristup")
+      console.log("Dopušten pristup - profesor")
 
     } else {
       //Otiđi se prijavit

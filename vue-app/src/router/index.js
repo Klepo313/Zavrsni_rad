@@ -9,7 +9,10 @@ import Login from "../views/Login.vue";
 import WelcomePage from "../views/WelcomePage.vue";
 import UploadPage from "../views/stu_eCourseUpload.vue";
 
+import prf_Dashboard from "../views/prf_Dashboard.vue";
+
 import DashboardLayout from "../layouts/Dashboard_layout.vue";
+import ProfesorLayout from "../layouts/ProfesorLayout.vue"
 import PublicLayout from "../layouts/Public_layout.vue";
 
 const routes = [
@@ -63,6 +66,22 @@ const routes = [
         component: Profile,
       },
   ]
+  },
+
+  {
+    path: "/profesor",
+    component: ProfesorLayout,
+    childern: [
+      {
+        path: "/",
+        component: prf_Dashboard
+      },
+      {
+        path: "/prf_eCourses",
+        name: "Stu_eCourses",
+        component: eCourses,
+      },
+    ]
   }
 
 
