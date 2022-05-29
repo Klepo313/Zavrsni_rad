@@ -15,7 +15,7 @@
           <ul>
               
               <li>
-                <router-link to="/" inactive-class="inactive">
+                <router-link to="/dashboard" inactive-class="inactive">
                   <img class="liImg" src="../assets/dashboardICon.svg" alt=""> Dashboard
                 </router-link>
               </li>

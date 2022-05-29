@@ -1,12 +1,12 @@
 <template>
     <main>
-        JEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
     </main>
 </template>
 
 <script>
 export default {
-    name: "prf_Dashboard",
+    
 }
 </script>
 

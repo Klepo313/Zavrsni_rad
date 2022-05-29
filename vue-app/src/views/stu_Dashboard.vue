@@ -44,30 +44,6 @@ export default {
         }
     },
     created(){
-        
-        /*let ses_uloga_id = sessionStorage.getItem('id_uloga')
-        let url = "http://localhost:3000/eCourses/" + ses_uloga_id
-
-        fetch(url)
-           .then(response => {
-                response.json().then(parsedJson => {
-
-                    console.log(parsedJson)
-
-                    for(let i = 0; i < parsedJson.length - 10 ; i++){
-                        console.log(parsedJson[i].nap_id + ", " + parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p + ", " + parsedJson[i].nap_naziv)
-                        
-                        this.eCourses[i] = {
-                            id: parsedJson[i].nap_id,
-                            name: parsedJson[i].nap_naziv,
-                            admin: parsedJson[i].osa_ime_p + ' ' + parsedJson[i].osa_prezime_p
-                        }
-                        
-                    }
-                    
-                }) 
-            })*/
-
         let ses_uloga_id = sessionStorage.getItem('id_uloga')
         let url = "http://localhost:3000/eCourses/" + ses_uloga_id
 

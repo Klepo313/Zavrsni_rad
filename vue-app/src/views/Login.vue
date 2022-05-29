@@ -61,17 +61,19 @@ export default {
 
                         let osa_id = parsedJson.osa_id
                         let osa_email = parsedJson.osa_username
-                        let osa_uloga_id = parsedJson.osa_ucenik
                         let osa_uloga
+                        let osa_uloga_id
 
                         if(parsedJson.osa_ucenik!=null){
                             osa_uloga = "ucenik"
+                            osa_uloga_id = parsedJson.osa_ucenik
                             //Redirect
-                            window.location.href = 'http://localhost:8080'
+                            window.location.href = 'http://localhost:8080/dashboard'
                         } else{
                             osa_uloga = "profesor"
+                            osa_uloga_id = parsedJson.osa_profesor
                             //Redirect
-                            window.location.href = 'http://localhost:8080/profesor'
+                            window.location.href = 'http://localhost:8080/prf_dashboard'
                         }
 
                         sessionStorage.setItem('email', osa_email); 

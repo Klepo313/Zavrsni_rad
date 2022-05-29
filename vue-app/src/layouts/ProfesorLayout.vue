@@ -20,14 +20,14 @@
                 </router-link>
               </li>
               <li>
-                <router-link to="/prf_eCourses" inactive-class="inactive">
-                  <img class="liImg" src="../assets/myEcourses.svg" alt="">    My eCourses
+                <router-link to="/prf_students" inactive-class="inactive">
+                  <img class="liImg" src="../assets/myEcourses.svg" alt="">    My students
                 </router-link>
               </li>
             
               <li>
                 <router-link to="/prf_calendar" inactive-class="inactive">
-                  <img class="liImg" src="../assets/calendarIcon.svg" alt="">  My Students
+                  <img class="liImg" src="../assets/calendarIcon.svg" alt="">  Calendar
                 </router-link>
               </li>
             
@@ -58,7 +58,7 @@
 
 export default {
     methods: {
-        hasHistory () { return window.history.length > 2 }
+      hasHistory () { return window.history.length > 2 }
     },
     created() {
 

@@ -10,6 +10,9 @@ import WelcomePage from "../views/WelcomePage.vue";
 import UploadPage from "../views/stu_eCourseUpload.vue";
 
 import prf_Dashboard from "../views/prf_Dashboard.vue";
+import prf_Students from "../views/prf_Students.vue"
+import prf_Calendar from "../views/prf_Calendar.vue"
+import prf_Profile from "../views/prf_Profile.vue"
 
 import DashboardLayout from "../layouts/Dashboard_layout.vue";
 import ProfesorLayout from "../layouts/ProfesorLayout.vue"
@@ -31,13 +34,40 @@ const routes = [
       },
     ]
   },
-      
+    
   {
-    path: "/dashboard",
+    path: "/profesor",
+    component: ProfesorLayout,
+    childern: [
+      {
+        path: "/prf_dashboard",
+        name: "prf_Dashboard",
+        component: prf_Dashboard
+      },
+      {
+        path: "/prf_students",
+        name: "prf_Students",
+        component: prf_Students,
+      },
+      {
+        path: "/prf_calendar",
+        name: "prf_Calendar",
+        component: prf_Calendar,
+      },
+      {
+        path: "/prf_profile",
+        name: "prf_Profile",
+        component: prf_Profile,
+      },
+    ]
+  }, 
+
+  {
+    path: "/student",
     component: DashboardLayout,
     children: [
       {
-        path: "/",
+        path: "/dashboard",
         component: Dashboard
       },
       {
@@ -66,24 +96,7 @@ const routes = [
         component: Profile,
       },
   ]
-  },
-
-  {
-    path: "/profesor",
-    component: ProfesorLayout,
-    childern: [
-      {
-        path: "/",
-        component: prf_Dashboard
-      },
-      {
-        path: "/prf_eCourses",
-        name: "Stu_eCourses",
-        component: eCourses,
-      },
-    ]
   }
-
 
 ];
 
@@ -93,3 +106,4 @@ const router = createRouter({
 });
 
 export default router;
+ 
