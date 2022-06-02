@@ -2,18 +2,18 @@
     <div>
         <div class="upperInfo">
             <div>
-                <h1 ref="hd1">Dashboard</h1>
-                <h4>student</h4>
+                <h1 ref="hd1">Naslovnica</h1>
+                <h4>učenik</h4>
             </div>
             <LogoutBtn />
         </div>
         <div class="searchContainer">
-            <label for="">Search for eCourses</label>
-            <input id="searchInput" type="text" placeholder="Search School, eCourse, etc.">
+            <label for="">Pretražite svoje kolegije</label>
+            <input id="searchInput" type="text" placeholder="Pretraži kolegije">
             <img class="icons" src="../assets/searchIcon.svg" alt="search">
         </div>
         <div class="courseContainer">
-            <label for="">Last visited eCourses</label>
+            <label for="">Zadnji posjećeni kolegiji</label>
             <div class="course-content-cc">
                 <eCourse 
                     v-for="course in eCourses"

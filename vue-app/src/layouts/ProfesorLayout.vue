@@ -10,12 +10,12 @@
       <div class="mainScreen">
         <nav>
 
-          <h2 @click="this.$router.push('/prf_dashboard')" style="cursor: pointer;" >upCloud.</h2>
+          <h2 @click="this.$router.push('/prfdashboard')" style="cursor: pointer;" >upCloud.</h2>
           
           <ul>
               
               <li>
-                <router-link to="/prf_dashboard" inactive-class="inactive">
+                <router-link to="/prfdashboard" inactive-class="inactive">
                   <img class="liImg" src="../assets/dashboardICon.svg" alt=""> Dashboard
                 </router-link>
               </li>

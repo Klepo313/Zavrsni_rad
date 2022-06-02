@@ -15,25 +15,25 @@
           <ul>
               
               <li>
-                <router-link to="/dashboard" inactive-class="inactive">
-                  <img class="liImg" src="../assets/dashboardICon.svg" alt=""> Dashboard
+                <router-link to="/" inactive-class="inactive">
+                  <img class="liImg" src="../assets/dashboardICon.svg" alt=""> Naslovnica
                 </router-link>
               </li>
               <li>
                 <router-link to="/eCourses" inactive-class="inactive">
-                  <img class="liImg" src="../assets/myEcourses.svg" alt="">    My eCourses
+                  <img class="liImg" src="../assets/myEcourses.svg" alt="">    Moji kolegiji
                 </router-link>
               </li>
             
               <li>
                 <router-link to="/calendar" inactive-class="inactive">
-                  <img class="liImg" src="../assets/calendarIcon.svg" alt="">  Calendar
+                  <img class="liImg" src="../assets/calendarIcon.svg" alt="">  Kalendar
                 </router-link>
               </li>
             
               <li>
                 <router-link to="/profile" inactive-class="inactive">
-                  <img class="liImg" src="../assets/myAccIcon.svg" alt="">     Profile
+                  <img class="liImg" src="../assets/myAccIcon.svg" alt="">     Profil
                 </router-link>
               </li>
               

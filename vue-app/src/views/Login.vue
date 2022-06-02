@@ -9,7 +9,7 @@
             <h2>upCloud.</h2>
             <div class="loginDiv">
                 
-                    <h3>Login to upCloud</h3>
+                    <h3>Prijavi se u upCloud</h3>
                     <!-- @submit.prevent="onSubmit" -->
                 <form @submit.prevent="onSubmit">
                     <div>
@@ -18,10 +18,10 @@
                     </div>
                     <div>
                         <img class="formIcons fic2" src="../assets/lockIcon.svg" alt="mail">
-                        <input type="password" id="password" ref="password" class="formInput fi2" autocomplete="off" placeholder="Password" required>
+                        <input type="password" id="password" ref="password" class="formInput fi2" autocomplete="off" placeholder="Lozinka" required>
                     </div>
 
-                    <button v-on:click="user_login" class="loginBtn" type="submit"> Login </button>
+                    <button v-on:click="user_login" class="loginBtn" type="submit"> Prijava </button>
                 </form>
                     
 
@@ -68,7 +68,7 @@ export default {
                             osa_uloga = "ucenik"
                             osa_uloga_id = parsedJson.osa_ucenik
                             //Redirect
-                            window.location.href = 'http://localhost:8080/dashboard'
+                            window.location.href = 'http://localhost:8080/'
                         } else{
                             osa_uloga = "profesor"
                             osa_uloga_id = parsedJson.osa_profesor

@@ -171,8 +171,8 @@ const postFile = (req, res) => {
         "base64": data.base64
     }
 
-    pool.query(`insert into datoteke (dat_dok_id, dat_naziv, dat_file, dat_ext, dat_blob, dat_mimetype, dat_vrsta, dat_kor_id)
-    values(${obj.upload_id}, '${obj.name}', '${obj.dat_file}', '${obj.ext}', decode('${obj.base64}', 'base64'), '${obj.mimeType}', 'U', ${obj.osa_id})`, 
+    pool.query(`insert into datoteke (dat_dok_id, dat_naziv, dat_file, dat_ext, dat_blob, dat_mimetype, dat_vrsta, dat_kor_id, dat_visibility)
+    values(${obj.upload_id}, '${obj.name}', '${obj.dat_file}', '${obj.ext}', decode('${obj.base64}', 'base64'), '${obj.mimeType}', 'U', ${obj.osa_id}, true)`, 
     (err, results) => {
         if (err) console.log(err);
         else{
@@ -240,7 +240,7 @@ const deleteFile = (req, res) => {
     (err, results) => {
         if (err) console.log(err);
         else{
-            results.json("successful")
+            res.json("successful")
         }
     })
 }

@@ -5,12 +5,12 @@
         <div id="nav">
       
           <div class="nav-left">
-            <router-link to="/wp"> <a href="#main1">Home</a> </router-link>
-            <router-link to="/wp"> <a href="#main2">About upCloud</a> </router-link>
-            <router-link to="/wp"> <a href="#main3">Find your eCourse</a> </router-link>
-            <router-link to="/wp"> <a href="#footer">Contact</a> </router-link>
+            <router-link to="/wp"> <a href="#main1">Naslovnica</a> </router-link>
+            <router-link to="/wp"> <a href="#main2">O aplikaciji</a> </router-link>
+            <router-link to="/wp"> <a href="#main3">Pronađi svoj kolegij</a> </router-link>
+            <router-link to="/wp"> <a href="#footer">Kontakt</a> </router-link>
             <router-link to="/login">
-              <button class="loginBtn" type="button">Login</button>
+              <button class="loginBtn" type="button">Prijava</button>
             </router-link>
           </div>
       
@@ -25,14 +25,14 @@
             <div class="main-left">
               <h1>upCloud.</h1>
               <div class="upDoc">
-                <div></div> Upload your documents!
+                <div></div> Prenesi svoje dokumente!
               </div>
               <p class="paragraph">
-                UpCloud is an online upload center made for students
-                to deliver their work to their teachers. Create your account and let's get started.
-                Press the button or scroll down for more.
+                UpCloud je web aplikacija koja omogućuje učenicima 
+                postavljanje izvješća i ostalih radova prema zadanom zadatku. 
+                Pritisnite gumb “Započnimo” za dalje.
               </p>
-              <button id="btnGetStarted" type="button" onclick="window.location.href='http://localhost:8080/login';">Let's get started</button>
+              <button id="btnGetStarted" type="button" onclick="window.location.href='http://localhost:8080/login';">Započnimo!</button>
             </div>
             <div class="main-right">
               <img src="../assets/uploadmainImg.svg" alt="imgup">
@@ -42,15 +42,18 @@
           <main class="main2" id="main2">
             <div class="main2-left">
               <div>
-                <h2>What is upCloud?</h2>
+                <h2>Što je upCloud?</h2>
                 <div class="undiv"></div>
               </div>
               <p class="paragraph2">
-                UpCloud is an online easy to use & super powerful web application made for students to 
-                deliver their work to teachers. Teachers have full statistics among students. 
-                UpCloud tracks every done & ongoing task -  when is done, sent and even if it’s plagiated. 
-                As a student, you can preview all of your done and scheduled tasks, grades and your attending courses.
-                As a teacher, you can make up to 2 courses and invite as many students as you want.
+                UpCloud je web aplikacija koja omogućuje učenicima 
+                postavljanje izvješća i ostalih radova prema zadanom 
+                zadatku, pri čemu nastavnici mogu pratiti aktivnosti 
+                učenika te ispunjenost zadatka. 
+                Aplikacija radi na principu da se učenik pridruži 
+                kolegiju kojeg administrira jedan od njegovih 
+                nastavnika te nakon  toga prenese svoj rad ili neki 
+                drugi dokument na mjesto predviđeno za to.
               </p>
             </div>
             <div class="main2-right">
@@ -58,7 +61,7 @@
             </div>
           </main>
       
-          <main class="main3" id="main3">
+          <!-- <main class="main3" id="main3">
             <div class="main3-left">
               <div>
                 <h2>Search for your eCourse.</h2>
@@ -70,21 +73,21 @@
                 No data found...
               </div>
             </div>
-          </main>
+          </main> -->
       
           <footer id="footer">
             <img src="../assets/footerImg.svg" alt="" class="footerImg">
             <div class="nav-left">
-              <router-link to="/wp">Home</router-link>
-              <router-link to="/wp">About upCloud</router-link>
-              <router-link to="/wp">Find your eCourse</router-link>
-              <router-link to="/wp">Contact</router-link>
+              <router-link to="/wp">Naslovnica</router-link>
+              <router-link to="/wp">O aplikaciji</router-link>
+              <router-link to="/wp">Pronađi svoj kolegij</router-link>
+              <router-link to="/wp">Kontakt</router-link>
               <router-link to="/login">
-                <button class="loginBtn" type="button">Login</button>
+                <button class="loginBtn" type="button">Prijava</button>
               </router-link>
             </div>
             <div class="copyright">
-              &#169; 2022 Split, Hrvatska, Inc. All rights reserved
+              &#169; 2022 Split, Hrvatska, Inc. Sva prava pridržana
             </div>
           </footer>
       

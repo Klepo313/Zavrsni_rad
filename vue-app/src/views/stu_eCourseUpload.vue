@@ -12,11 +12,11 @@
                 <h2 ref="header"></h2>
             </div>
             <div>
-                <span class="sTitle">Due</span>
+                <span class="sTitle">Predati do:</span>
                 <p class="sPrghf" ref="due"></p>
             </div>
             <div>
-                <span class="sTitle">Assignment description</span>
+                <span class="sTitle">Opis vježbe</span>
                 <p class="sPrghf" ref="description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non auctor 
                     massa, in ultricies arcu. In eleifend, tortor sit amet egestas laoreet, nisl neque 
@@ -24,7 +24,7 @@
                 </p>
             </div>
             <div>
-                <span class="sTitle">Assignment files</span>
+                <span class="sTitle">Prikvačeni dokumenti</span>
                 <div class="upload-container">
                     <AttachedFile class="slideInLeft"
                         v-for="course in attcCourses"
@@ -37,10 +37,10 @@
             </div>
             <div>
                 <div class="myWorkContainer">
-                    <span class="sTitle">My uploaded work</span>
+                    <span class="sTitle">Preneseni dokumenti</span>
                     <div class="edit" @click="openPopup">
                         <img src="../assets/editIcon.svg" alt="editIcon">
-                        <span>Edit</span>
+                        <span>Uredi</span>
                     </div>
                 </div>
                 <!--    :image="updc.image"  -->
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <button id="btnAddAttch" type="button" @click="openPopup">
-                <img src="../assets/plusIcon.svg" alt="plusIcon"> Add work
+                <img src="../assets/plusIcon.svg" alt="plusIcon"> Dodaj rad
             </button>
             <div ref="upDiv" class="upDiv">
                 <!-- <a ref="download_btn" href="" download>Download me</a> -->
@@ -67,7 +67,7 @@
                 <section class="sec1">
                     <div class="uploadPlaces">
                         <div class="mainTitle">
-                            <h2 class="h2PopUp">Upload device</h2>
+                            <h2 class="h2PopUp">Upload mjesto</h2>
                         </div>
                         <div class="uploadDevices">
                             <button class="btnUpDevice">
@@ -83,16 +83,16 @@
                             <div class="strLine"></div>
 
                             <button class="btnUpDevice">
-                                <img src="../assets/thispcIcon.svg" alt="ThisDevice"> This device
+                                <img src="../assets/thispcIcon.svg" alt="ThisDevice"> Ovaj uređaj
                             </button>
                         </div>
                     </div>
-                    <button type="button" class="btnBack" @click="closePopup">Close</button>
+                    <button type="button" class="btnBack" @click="closePopup">Zatvori</button>
                 </section>
                 <div class="fakeSection">
                     <section class="sec2">
                         <div class="mainTitle">
-                            <h2 class="h2PopUp">Drag 'n' drop area</h2>
+                            <h2 class="h2PopUp">Drag 'n' drop</h2>
                         </div>
                         <div class="dndArea">
                             <span>Drag and drop</span> 
@@ -101,7 +101,7 @@
                     </section>
                     <section class="sec3">
                         <div class="mainTitle">
-                            <h2 class="h2PopUp">Attached files</h2>
+                            <h2 class="h2PopUp">Preneseni dokumenti</h2>
                         </div>
                         <div class="attachedFiles slideInLeft">
                             <UploadedCourse id="uploadedcourse" class="slideInLeft"
@@ -114,7 +114,7 @@
                         </div>
                         <button id="btnSubmit" ref="btnSubmit">
                             <img class="uploadIcon" src="../assets/uploadIcon.svg" alt="uploadIcon">
-                            Submit changes
+                            Spremi promjene
                         </button>
                     </section>
                 </div>
@@ -123,7 +123,7 @@
         </div>
 
         <div class="upload-pop" ref="upload_pop">
-            <span>Upload successful</span>
+            <span>Uspješno preneseno!</span>
         </div>
 
     </div>

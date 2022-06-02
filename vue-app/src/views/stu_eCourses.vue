@@ -10,13 +10,13 @@
         </div>
         <div class="upperInfo">
             <div>
-                <h1 ref="header">My eCourses</h1>
-                <h4>student</h4>
+                <h1 ref="header">Moji kolegiji</h1>
+                <h4>učenik</h4>
             </div>
             <LogoutBtn />
         </div>
         <div class="courseContainer">
-            <label for="">All attending eCourses</label>
+            <label for="">Svi radni kolegiji</label>
             <div class="course-content-cc">
                 <!-- @click="getPropValues(this)" -->
                 <eCourse 

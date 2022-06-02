@@ -2,56 +2,56 @@
     <div>
         <div class="upperInfo">
             <div>   
-                <h1>Profile</h1>
-                <h4>student</h4>
+                <h1>Profil</h1>
+                <h4>učenik</h4>
             </div>
             <LogoutBtn />
         </div>
         <div class="courseContainer">
             <div class="grid-item">
-                Name
+                Ime
             </div>
             <div class="grid-item">
                 <input class="grid-input" type="text" ref="name" readonly>
             </div>
             <div class="grid-item">
-                Surname
+                Prezime
             </div>
             <div class="grid-item">
                 <input class="grid-input" type="text" ref="surname" readonly>
             </div>
             <div class="grid-item">
-                Email adress
+                Email adresa
             </div>
             <div class="grid-item">
                 <input class="grid-input" type="email" ref="email" readonly>
             </div>
             <div class="grid-item">
-                School
+                Škola
             </div>
             <div class="grid-item">
                 <input class="grid-input " type="text" ref="school" readonly>
             </div>
             <div class="grid-item school">
-                School direction
+                Usmjerenje
             </div>
             <div class="grid-item">
                 <input class="grid-input" type="text" ref="direction" readonly>
             </div>
             <div class="grid-item school">
-                Class
+                Razred
             </div>
             <div class="grid-item">
                 <input class="grid-input" type="text" ref="class" readonly>
             </div>
             <div class="grid-item">
-                School year
+                Školska godina
             </div>
             <div class="grid-item">
                 <input class="grid-input" type="text" ref="enrollment" readonly>
             </div>
             <div class="grid-item">
-                Attending eCourses
+                Radni kolegiji
             </div>
         </div>
 

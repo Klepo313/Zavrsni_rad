@@ -9,10 +9,12 @@ import Login from "../views/Login.vue";
 import WelcomePage from "../views/WelcomePage.vue";
 import UploadPage from "../views/stu_eCourseUpload.vue";
 
-import prf_Dashboard from "../views/prf_Dashboard.vue";
+import Profdashboard from "../views/profdashboard.vue";
 import prf_Students from "../views/prf_Students.vue"
 import prf_Calendar from "../views/prf_Calendar.vue"
 import prf_Profile from "../views/prf_Profile.vue"
+
+
 
 import DashboardLayout from "../layouts/Dashboard_layout.vue";
 import ProfesorLayout from "../layouts/ProfesorLayout.vue"
@@ -40,12 +42,12 @@ const routes = [
     component: ProfesorLayout,
     childern: [
       {
-        path: "/prf_dashboard",
+        path: "/prfdashboard",
         name: "prf_Dashboard",
-        component: prf_Dashboard
+        component: Profdashboard
       },
       {
-        path: "/prf_students",
+        path: "/prfstudents",
         name: "prf_Students",
         component: prf_Students,
       },
@@ -67,7 +69,7 @@ const routes = [
     component: DashboardLayout,
     children: [
       {
-        path: "/dashboard",
+        path: "/",
         component: Dashboard
       },
       {
@@ -104,6 +106,8 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+console.log(router)
 
 export default router;
  

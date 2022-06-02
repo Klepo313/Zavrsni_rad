@@ -2,8 +2,8 @@
     <div class="container">
       <div class="upperInfo">
         <div>
-          <h1 ref="hd1">Calendar</h1>
-          <h4>student</h4>
+          <h1 ref="hd1">Kalendar</h1>
+          <h4>učenik</h4>
         </div>
         <LogoutBtn />
       </div>
@@ -68,7 +68,7 @@ export default {
           typeof calendar.Options[key] != 'function' && typeof calendar.Options[key] != 'object' && calendar.Options[key]?element.className += " " + key + "-" + calendar.Options[key]:0;
         }
       }
-      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var months = ["Siječanj", "Veljača", "Ožujak", "Travanj", "Svibanj", "Lipanj", "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"];
 
       function AddSidebar(){
         var sidebar = document.createElement('div');
@@ -170,7 +170,7 @@ export default {
       function AddLabels(){
         var labels = document.createElement('ul');
         labels.className = 'cld-labels';
-        var labelsList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        var labelsList = ["Ned", "Pon", "Uto", "Sri", "Čet", "Pet", "Sub"];
         for(var i = 0; i < labelsList.length; i++){
           var label = document.createElement('li');
           label.className += "cld-label";
@@ -314,9 +314,9 @@ export default {
     }
 
     var events = [
-      {'Date': new Date(2022, 5, 7), 'Title': 'Doctor appointment at 3:25pm.'},
-      {'Date': new Date(2022, 5, 18), 'Title': 'New Garfield movie comes out!', 'Link': 'https://garfield.com'},
-      {'Date': new Date(2022, 5, 27), 'Title': '25 year anniversary', 'Link': 'https://www.google.com.au/#q=anniversary+gifts'},
+      {'Date': new Date(2022, 5, 7), 'Title': 'Digitalna Logika - Monostabil'},
+      // {'Date': new Date(2022, 5, 12), 'Title': 'New Garfield movie comes out!', 'Link': 'https://garfield.com'},
+      // {'Date': new Date(2022, 5, 13), 'Title': '25 year anniversary', 'Link': 'https://www.google.com.au/#q=anniversary+gifts'},
     ];
     var settings = {};
     var element = document.getElementById('caleandar');

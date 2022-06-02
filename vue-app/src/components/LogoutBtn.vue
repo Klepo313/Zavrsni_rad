@@ -1,7 +1,7 @@
 <template>
     <div id="join_eCourse" ref="logoutBtn">
         <img src="../assets/logoutIcon.svg" alt="">
-        <span v-on:click="logout">Logout</span>
+        <span v-on:click="logout">Odjava</span>
     </div>
 </template>
 

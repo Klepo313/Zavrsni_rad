@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: "prf_Dashboard",
+    name: "profdashboard",
 }
 </script>
 
